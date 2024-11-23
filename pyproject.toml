@@ -1,0 +1,25 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "nadoo-migration-framework"
+version = "0.1.0"
+authors = [
+  { name="NADOO IT", email="info@nadoo.it" },
+]
+description = "A powerful, Git-based migration framework for managing codebase changes in NADOO Framework projects"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "typing-extensions>=4.0.0",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/NADOOIT/nadoo-migration-framework"
+"Bug Tracker" = "https://github.com/NADOOIT/nadoo-migration-framework/issues"
