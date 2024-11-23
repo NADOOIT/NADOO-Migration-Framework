@@ -9,11 +9,10 @@ from ..base import Migration
 class ConsolidateImportsMigration(Migration):
     """Consolidate and clean up imports."""
 
-    version = "0.3.3"
-
     def __init__(self):
         """Initialize migration."""
         super().__init__()
+        self.version = "0.3.3"
         self.original_states: Dict[str, ImportState] = {}
 
     def check_if_needed(self) -> bool:
@@ -38,13 +37,15 @@ class ConsolidateImportsMigration(Migration):
             for node in ast.walk(tree):
                 if isinstance(node, (ast.Import, ast.ImportFrom)):
                     for name in node.names:
-                        imports.add(name.name)
+                        imports.add(name.asname or name.name)
             
             # Get all used names
             used = set()
             for node in ast.walk(tree):
                 if isinstance(node, ast.Name):
                     used.add(node.id)
+                elif isinstance(node, ast.Attribute):
+                    used.add(node.value.id)
             
             # Check for unused imports
             return bool(imports - used)
@@ -72,11 +73,12 @@ class ConsolidateImportsMigration(Migration):
                 # Parse and transform imports
                 tree = cst.parse_module(code)
                 transformer = ImportTransformer()
-                modified_tree = tree.visit(transformer)
+                tree = transformer.visit(tree)  # First pass to collect used names
+                tree = transformer.transform(tree)  # Second pass to remove unused imports
                 
                 # Write back cleaned up code
                 with open(py_file, "w") as f:
-                    f.write(modified_tree.code)
+                    f.write(tree.code)
                     
             except Exception as e:
                 print(f"Error processing {py_file}: {e}")
@@ -105,39 +107,54 @@ class ImportTransformer(cst.CSTTransformer):
     def __init__(self):
         """Initialize transformer."""
         super().__init__()
-        self.used_names = set()
-        self.imported_names = {}
+        self.used_names: Set[str] = set()
+        self.used_from_imports: Dict[str, Set[str]] = {}
+        self.imported_names: Dict[str, str] = {}
 
     def visit_Name(self, node: cst.Name) -> None:
         """Track used names."""
         self.used_names.add(node.value)
 
-    def leave_Import(self, original_node: cst.Import, updated_node: cst.Import) -> cst.Import:
-        """Clean up imports."""
-        new_names = []
-        for name in updated_node.names:
-            if name.asname:
-                alias = name.asname.name.value
-            else:
-                alias = name.name.value
-            if alias in self.used_names:
-                new_names.append(name)
-        
-        if not new_names:
-            return cst.RemoveFromParent()
-        return updated_node.with_changes(names=new_names)
+    def visit_Attribute(self, node: cst.Attribute) -> None:
+        """Track used attributes."""
+        if isinstance(node.value, cst.Name):
+            self.used_names.add(node.value.value)
 
-    def leave_ImportFrom(self, original_node: cst.ImportFrom, updated_node: cst.ImportFrom) -> cst.ImportFrom:
-        """Clean up from imports."""
-        new_names = []
-        for name in updated_node.names:
-            if name.asname:
-                alias = name.asname.name.value
-            else:
-                alias = name.name.value
-            if alias in self.used_names:
-                new_names.append(name)
+    def transform(self, tree: cst.Module) -> cst.Module:
+        """Transform the tree to remove unused imports."""
+        class ImportRemover(cst.CSTTransformer):
+            def __init__(self, used_names: Set[str]):
+                super().__init__()
+                self.used_names = used_names
+            
+            def leave_Import(self, original_node: cst.Import, updated_node: cst.Import) -> cst.Import:
+                """Remove unused imports."""
+                new_names = []
+                for name in updated_node.names:
+                    if name.asname:
+                        alias = name.asname.name.value
+                    else:
+                        alias = name.name.value
+                    if alias in self.used_names:
+                        new_names.append(name)
+                
+                if not new_names:
+                    return cst.RemoveFromParent()
+                return updated_node.with_changes(names=new_names)
+            
+            def leave_ImportFrom(self, original_node: cst.ImportFrom, updated_node: cst.ImportFrom) -> cst.ImportFrom:
+                """Remove unused from imports."""
+                new_names = []
+                for name in updated_node.names:
+                    if name.asname:
+                        alias = name.asname.name.value
+                    else:
+                        alias = name.name.value
+                    if alias in self.used_names:
+                        new_names.append(name)
+                
+                if not new_names:
+                    return cst.RemoveFromParent()
+                return updated_node.with_changes(names=new_names)
         
-        if not new_names:
-            return cst.RemoveFromParent()
-        return updated_node.with_changes(names=new_names)
+        return tree.visit(ImportRemover(self.used_names))
