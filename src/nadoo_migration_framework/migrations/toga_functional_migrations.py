@@ -280,6 +280,7 @@ class RegularFunctionTransformer(cst.CSTTransformer):
         super().__init__()
         self.functions_dir = functions_dir
         self.in_class = False
+        self.imports = []
 
     def visit_ClassDef(self, node: cst.ClassDef) -> bool:
         """Track when we're inside a class."""
@@ -290,6 +291,14 @@ class RegularFunctionTransformer(cst.CSTTransformer):
         """Track when we leave a class."""
         self.in_class = False
         return updated_node
+
+    def visit_Import(self, node: cst.Import) -> None:
+        """Track imports."""
+        self.imports.append(node)
+
+    def visit_ImportFrom(self, node: cst.ImportFrom) -> None:
+        """Track from imports."""
+        self.imports.append(node)
 
     def leave_FunctionDef(self, original_node: cst.FunctionDef, updated_node: cst.FunctionDef) -> cst.FunctionDef:
         """Extract regular functions."""
@@ -308,17 +317,15 @@ class RegularFunctionTransformer(cst.CSTTransformer):
 
         # Create new file for function
         func_file = self.functions_dir / f"{original_node.name.value}.py"
-        imports = []
-        for node in original_node.body.body:
-            if isinstance(node, (cst.Import, cst.ImportFrom)):
-                imports.append(node)
+        
+        # Generate imports
+        imports_code = "\n".join(imp.code for imp in self.imports)
 
         # Write function to new file
         with open(func_file, "w") as f:
-            for imp in imports:
-                f.write(imp.code + "\n")
-            f.write("\n")
-            f.write(updated_node.code)
+            if imports_code:
+                f.write(imports_code + "\n\n")
+            f.write(cst.Module([updated_node]).code)
 
         # Replace function with import
         return cst.ImportFrom(
