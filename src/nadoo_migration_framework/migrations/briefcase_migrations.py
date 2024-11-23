@@ -62,7 +62,10 @@ class UpdateBriefcaseLicenseMigration(Migration):
             config = toml.load(f)
         
         # Store original config for rollback
-        self.original_config = config.copy()
+        self.original_config = {
+            key: value.copy() if isinstance(value, dict) else value
+            for key, value in config.items()
+        }
         
         # Update license configuration
         project = config["project"]
@@ -91,3 +94,8 @@ class UpdateBriefcaseLicenseMigration(Migration):
         pyproject_file = self.project_dir / "pyproject.toml"
         with open(pyproject_file, "w") as f:
             toml.dump(self.original_config, f)
+            
+        # Remove LICENSE file if it was created by this migration
+        license_file = self.project_dir / "LICENSE"
+        if license_file.exists():
+            license_file.unlink()
