@@ -4,6 +4,7 @@ import subprocess
 from abc import ABC, abstractmethod
 from datetime import datetime
 from typing import Dict, Any, List
+from pathlib import Path
 
 class Migration(ABC):
     """Base class for all migrations."""
@@ -12,6 +13,7 @@ class Migration(ABC):
         """Initialize migration."""
         self.version = self._extract_version()
         self.dependencies: List[str] = []
+        self.project_dir: Path = None
     
     def _extract_version(self) -> str:
         """Extract version from class name."""
@@ -20,6 +22,29 @@ class Migration(ABC):
             # For test migrations, strip 'Test' prefix
             return class_name[4:]
         return class_name
+        
+    def _update_version(self, version: str) -> None:
+        """Update version in pyproject.toml."""
+        if not self.project_dir:
+            return
+            
+        toml_file = self.project_dir / "pyproject.toml"
+        if not toml_file.exists():
+            return
+            
+        import toml
+        with open(toml_file) as f:
+            data = toml.load(f)
+            
+        if "tool" not in data:
+            data["tool"] = {}
+        if "briefcase" not in data["tool"]:
+            data["tool"]["briefcase"] = {}
+            
+        data["tool"]["briefcase"]["version"] = version
+        
+        with open(toml_file, "w") as f:
+            toml.dump(data, f)
     
     def _git_commit(self, message: str) -> None:
         """Create a Git commit with the given message."""
@@ -40,6 +65,9 @@ class Migration(ABC):
             # Apply the migration
             self._up()
             
+            # Update version
+            self._update_version(self.version)
+            
             # Create a commit after successful migration
             self._git_commit(f"Applied migration {self.version}")
         except Exception as e:
@@ -59,6 +87,11 @@ class Migration(ABC):
             
             # Rollback the migration
             self._down()
+            
+            # Update version
+            version_parts = self.version.split('.')
+            version_parts[-1] = str(int(version_parts[-1]) - 1)
+            self._update_version('.'.join(version_parts))
             
             # Create a commit after successful rollback
             self._git_commit(f"Rolled back migration {self.version}")
