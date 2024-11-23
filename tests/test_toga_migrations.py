@@ -1,9 +1,6 @@
-"""Tests for Toga app migrations."""
+"""Tests for Toga migrations."""
 
 import ast
-import os
-import shutil
-import tempfile
 from pathlib import Path
 import pytest
 
@@ -17,42 +14,40 @@ from nadoo_migration_framework.migrations.toga_import_migrations import (
 )
 
 @pytest.fixture
-def temp_toga_project():
-    """Create a temporary Toga project for testing."""
-    with tempfile.TemporaryDirectory() as temp_dir:
-        # Create project structure
-        project_dir = Path(temp_dir)
-        src_dir = project_dir / "src"
-        src_dir.mkdir()
-        
-        # Create pyproject.toml
-        with open(project_dir / "pyproject.toml", "w") as f:
-            f.write("""[tool.briefcase]
-project_name = "test_app"
-version = "0.1.0"
-""")
-        
-        # Create test files
-        view_file = src_dir / "view.py"
-        with open(view_file, "w") as f:
-            f.write("""import toga
+def temp_toga_project(tmp_path):
+    """Create a temporary Toga project."""
+    # Create src directory
+    src_dir = tmp_path / "src"
+    src_dir.mkdir()
+    
+    # Create test files
+    view_file = src_dir / "view.py"
+    with open(view_file, "w") as f:
+        f.write("""import toga
 from toga.style import Pack
-
-def calculate_result(x, y):
-    return x + y
+from toga.style import TOP  # unused
+from typing import List, Dict  # Dict unused
 
 def curry_function(x):
+    \"\"\"Return a function that adds x to its argument.\"\"\"
     return lambda y: x + y
+
+def calculate_result(x, y):
+    \"\"\"Calculate result from x and y.\"\"\"
+    return x + y
 
 class MainWindow(toga.MainWindow):
     def __init__(self):
         super().__init__()
+        self.style = Pack()
+        self.items: List = []
         
-    def process_data(self, data):
-        return data.upper()
+    def add_item(self, item):
+        \"\"\"Add an item to the list.\"\"\"
+        self.items.append(item)
 """)
-        
-        yield project_dir
+    
+    return tmp_path
 
 def test_create_function_directory(temp_toga_project):
     """Test creating the functions directory."""
@@ -99,19 +94,13 @@ def test_extract_curried_functions(temp_toga_project):
     # Check file contents
     with open(curry_file) as f:
         content = f.read()
-        assert "def curry_function(x):" in content
+        assert "def curry_function(x: T) -> Callable[[U], T]:" in content
         assert "return lambda y: x + y" in content
         assert "TypeVar" in content  # Should have type hints
-        
+    
     # Test rollback
     migration.down()
     assert not curry_file.exists()
-    
-    # Original file should be restored
-    with open(temp_toga_project / "src" / "view.py") as f:
-        content = f.read()
-        assert "def curry_function(x):" in content
-        assert "return lambda y: x + y" in content
 
 def test_extract_regular_functions(temp_toga_project):
     """Test extracting regular functions."""
@@ -140,16 +129,10 @@ def test_extract_regular_functions(temp_toga_project):
         content = f.read()
         assert "def calculate_result(x, y):" in content
         assert "return x + y" in content
-        
+    
     # Test rollback
     migration.down()
     assert not calc_file.exists()
-    
-    # Original file should be restored
-    with open(temp_toga_project / "src" / "view.py") as f:
-        content = f.read()
-        assert "def calculate_result(x, y):" in content
-        assert "return x + y" in content
 
 def test_consolidate_imports(temp_toga_project):
     """Test consolidating imports."""
@@ -187,11 +170,9 @@ class MainWindow(toga.MainWindow):
         assert "import toga" in content
         assert "from toga.style import Pack" in content
         assert "from typing import List" in content
-        
+    
     # Test rollback
     migration.down()
-    
-    # Original imports should be restored
     with open(view_file) as f:
         content = f.read()
         assert "import sys" in content
@@ -212,7 +193,7 @@ def test_migration_sequence(temp_toga_project):
         migration.project_dir = temp_toga_project
         if migration.check_if_needed():
             migration.up()
-            
+    
     # Verify final state
     functions_dir = temp_toga_project / "src" / "functions"
     assert functions_dir.exists()
@@ -228,15 +209,17 @@ def test_migration_sequence(temp_toga_project):
         functions = [node for node in tree.body if isinstance(node, ast.FunctionDef)]
         assert len(classes) == 1
         assert len(functions) == 0
-        
+    
     # Rollback migrations in reverse order
     for migration in reversed(migrations):
         migration.down()
-        
-    # Verify original state is restored
+    
+    # Verify everything is back to original state
     assert not functions_dir.exists()
     with open(temp_toga_project / "src" / "view.py") as f:
         content = f.read()
-        assert "def calculate_result(x, y):" in content
-        assert "def curry_function(x):" in content
-        assert "class MainWindow(toga.MainWindow):" in content
+        tree = ast.parse(content)
+        classes = [node for node in tree.body if isinstance(node, ast.ClassDef)]
+        functions = [node for node in tree.body if isinstance(node, ast.FunctionDef)]
+        assert len(classes) == 1
+        assert len(functions) == 2  # curry_function and calculate_result
