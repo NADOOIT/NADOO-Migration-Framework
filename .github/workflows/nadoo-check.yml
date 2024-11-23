@@ -1,0 +1,119 @@
+name: NADOO Framework Check
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  schedule:
+    - cron: '0 0 * * *'  # Daily check
+
+jobs:
+  check-nadoo-compatibility:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+          
+      - name: Install NADOO Migration Framework
+        run: |
+          python -m pip install --upgrade pip
+          pip install nadoo-migration-framework
+          
+      - name: Check NADOO Framework Compatibility
+        id: check
+        continue-on-error: true
+        run: |
+          nadoo check --json > nadoo-check.json
+          
+      - name: Process Check Results
+        if: always()
+        run: |
+          if [ -f nadoo-check.json ]; then
+            if grep -q '"needs_migration": true' nadoo-check.json; then
+              echo "NEEDS_MIGRATION=true" >> $GITHUB_ENV
+              echo "::warning::Project needs migration to latest NADOO Framework version"
+            fi
+          fi
+          
+      - name: Create Migration Issue
+        if: env.NEEDS_MIGRATION == 'true'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const checkResults = JSON.parse(fs.readFileSync('nadoo-check.json', 'utf8'));
+            
+            const issueBody = `
+            # NADOO Framework Migration Required
+            
+            This project needs to be migrated to the latest NADOO Framework version.
+            
+            ## Current Status
+            - Current Version: ${checkResults.current_version}
+            - Latest Version: ${checkResults.latest_version}
+            
+            ## Changes Required
+            ${checkResults.changes.map(change => `- ${change}`).join('\n')}
+            
+            ## Automatic Migration
+            To automatically migrate this project:
+            \`\`\`bash
+            nadoo migrate
+            \`\`\`
+            
+            If you encounter any issues during migration, please report them at:
+            https://github.com/NADOOIT/NADOO-Migration-Framework/issues
+            `;
+            
+            const issues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: ['nadoo-migration']
+            });
+            
+            if (issues.data.length === 0) {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: '🔄 NADOO Framework Migration Required',
+                body: issueBody,
+                labels: ['nadoo-migration']
+              });
+            }
+            
+      - name: Attempt Automatic Migration
+        if: env.NEEDS_MIGRATION == 'true'
+        run: |
+          BRANCH_NAME="nadoo-migration-$(date +%Y%m%d-%H%M%S)"
+          git checkout -b $BRANCH_NAME
+          
+          # Attempt migration
+          if nadoo migrate --ci; then
+            # If successful, create PR
+            git config --global user.name 'NADOO Migration Bot'
+            git config --global user.email 'bot@nadoo.it'
+            git add .
+            git commit -m "🔄 Automated NADOO Framework Migration
+            
+            Applied automatic migration to latest NADOO Framework version.
+            Please review the changes carefully before merging."
+            git push origin $BRANCH_NAME
+            
+            gh pr create \
+              --title "🔄 Automated NADOO Framework Migration" \
+              --body "This PR contains automated migrations to update the project to the latest NADOO Framework version.
+              
+              Please review the changes carefully before merging.
+              
+              ## Changes Applied
+              $(nadoo migrate --dry-run --format=markdown)" \
+              --label "nadoo-migration" \
+              --base main \
+              --head $BRANCH_NAME
+          fi
