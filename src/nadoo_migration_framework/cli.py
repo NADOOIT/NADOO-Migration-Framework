@@ -14,6 +14,7 @@ from .analyzers import NADOOProjectAnalyzer, NonNADOOProjectAnalyzer
 from .functions import project_structure
 from .version_management import VersionManager, VersionType
 from .compatibility import CompatibilityChecker
+from .migrations import MigrationEngine
 
 @click.group()
 def cli():
@@ -22,8 +23,44 @@ def cli():
 
 @cli.command()
 @click.argument('project_path', type=click.Path(exists=True, file_okay=False, dir_okay=True), default='.')
+@click.option('--auto', is_flag=True, help='Automatically execute migrations without confirmation')
+@click.option('--dry-run', is_flag=True, help='Show what would be done without making changes')
+@click.option('--backup/--no-backup', default=True, help='Create backup before migration')
+def migrate(project_path: str, auto: bool, dry_run: bool, backup: bool):
+    """Migrate a project to NADOO Framework standards."""
+    try:
+        engine = MigrationEngine(Path(project_path))
+        plan = engine.plan_migration()
+        
+        if dry_run:
+            click.echo("\nMigration Plan:")
+            for step in plan.steps:
+                click.echo(f"  - {step['description']}")
+            click.echo(f"\nEstimated time: {plan.estimated_time} seconds")
+            return
+        
+        if not auto:
+            click.echo("\nPlanned Changes:")
+            for step in plan.steps:
+                click.echo(f"  - {step['description']}")
+            
+            if not click.confirm("\nDo you want to proceed with these changes?"):
+                click.echo("Migration cancelled.")
+                return
+        
+        plan.backup_needed = backup
+        if engine.execute_plan(plan):
+            click.echo("Migration completed successfully!")
+        else:
+            click.echo("Migration failed. Check the error messages above.", err=True)
+            
+    except Exception as e:
+        click.echo(f"Error during migration: {e}", err=True)
+
+@cli.command()
+@click.argument('project_path', type=click.Path(exists=True, file_okay=False, dir_okay=True), default='.')
 @click.option('--force', is_flag=True, help='Force migration even if checks fail')
-def migrate(project_path: str, force: bool = False):
+def migrate_old(project_path: str, force: bool = False):
     """Migrate a project to the latest NADOO Framework version."""
     _run_migration(project_path, force)
 

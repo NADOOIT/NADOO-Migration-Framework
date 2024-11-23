@@ -1,0 +1,10 @@
+# NADOO Framework Configuration
+version = "0.1.2"
+
+[project]
+name = "nadoo-migration-framework"
+description = "NADOO Migration Framework"
+
+[migration]
+backup = true
+auto_commit = true

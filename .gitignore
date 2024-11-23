@@ -37,3 +37,6 @@ Thumbs.db
 
 # PyPI configuration
 .pypirc
+
+# NADOO Framework
+.nadoo/backups/

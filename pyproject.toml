@@ -33,6 +33,7 @@ python = "^3.8"
 click = "^8.1.0"
 toml = "^0.10.2"
 pathlib = "^1.0.1"
+nadoo-migration-framework = "^0.1.2"  # Self-dependency for framework features
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.0.0"
@@ -47,3 +48,7 @@ nadoo-migrate = "nadoo_migration_framework.cli:migrate"
 nadoo-add = "nadoo_migration_framework.cli:add_package"
 nadoo-init = "nadoo_migration_framework.cli:init_project"
 nadoo-publish = "nadoo_migration_framework.cli:publish"
+
+
+[tool.nadoo]
+version = "0.1.2"
