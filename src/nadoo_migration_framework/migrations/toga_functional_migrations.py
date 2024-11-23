@@ -218,10 +218,22 @@ class ExtractRegularFunctionsMigration(Migration):
             for node in ast.walk(tree):
                 if isinstance(node, ast.FunctionDef):
                     # Skip if it's a method
-                    if not any(isinstance(parent, ast.ClassDef) for parent in ast.walk(tree) if hasattr(parent, 'body') and node in parent.body):
-                        # Skip if it's a curried function
-                        if not any(isinstance(child, ast.Return) and isinstance(child.value, ast.Lambda) for child in ast.walk(node)):
-                            return True
+                    is_method = False
+                    for parent in ast.walk(tree):
+                        if isinstance(parent, ast.ClassDef) and node in parent.body:
+                            is_method = True
+                            break
+                    if is_method:
+                        continue
+
+                    # Skip if it's a curried function
+                    is_curried = False
+                    for child in node.body:
+                        if isinstance(child, ast.Return) and isinstance(child.value, ast.Lambda):
+                            is_curried = True
+                            break
+                    if not is_curried:
+                        return True
             return False
         except Exception:
             return False
@@ -281,6 +293,7 @@ class RegularFunctionTransformer(cst.CSTVisitor):
         self.functions_dir = functions_dir
         self.in_class = False
         self.imports = []
+        self.functions_to_remove = []
 
     def visit_ClassDef(self, node: cst.ClassDef) -> None:
         """Track when we're inside a class."""
@@ -320,13 +333,16 @@ class RegularFunctionTransformer(cst.CSTVisitor):
         # Generate imports
         imports_str = ""
         for imp in self.imports:
-            imports_str += cst.Module([imp]).code + "\n"
+            imports_str += cst.Module([imp]).code
 
         # Write function to new file
         with open(func_file, "w") as f:
             if imports_str:
                 f.write(imports_str + "\n")
             f.write(cst.Module([original_node]).code)
+
+        # Mark function for removal
+        self.functions_to_remove.append(original_node.name.value)
 
         # Replace function with import
         return cst.ImportFrom(
