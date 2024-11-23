@@ -13,7 +13,7 @@ from .manager import MigrationManager
 from .analyzers import NADOOProjectAnalyzer, NonNADOOProjectAnalyzer
 from .functions import project_structure
 from .version_management import VersionManager, VersionType
-from .compatibility_checker import CompatibilityChecker
+from .compatibility import CompatibilityChecker
 
 @click.group()
 def cli():
@@ -412,17 +412,18 @@ def _run_release(version_type: str, description: str, changes: List[str],
         click.echo(f"Error creating release: {e}", err=True)
 
 @cli.command()
-@click.option('--json', is_flag=True, help='Output results in JSON format')
+@click.option('--json', 'json_output', is_flag=True, help='Output results in JSON format')
 @click.option('--markdown', is_flag=True, help='Output results in Markdown format')
 @click.option('--project-dir', type=click.Path(exists=True, file_okay=False, dir_okay=True),
               default='.', help='Project directory to check')
-def check(json: bool, markdown: bool, project_dir: str):
+def check(json_output: bool, markdown: bool, project_dir: str):
     """Check project compatibility with NADOO Framework."""
     checker = CompatibilityChecker(Path(project_dir))
     results = checker.check_compatibility()
     
-    if json:
-        click.echo(json.dumps(results.to_dict(), indent=2))
+    if json_output:
+        import json as json_module
+        click.echo(json_module.dumps(results.to_dict(), indent=2))
     elif markdown:
         click.echo(results.to_markdown())
     else:
