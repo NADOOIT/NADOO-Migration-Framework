@@ -272,7 +272,7 @@ class ExtractRegularFunctionsMigration(Migration):
             with open(state.file_path, "w") as f:
                 f.write(state.original_code)
 
-class RegularFunctionTransformer(cst.CSTTransformer):
+class RegularFunctionTransformer(cst.CSTVisitor):
     """Transform regular functions."""
 
     def __init__(self, functions_dir: Path):
@@ -282,15 +282,14 @@ class RegularFunctionTransformer(cst.CSTTransformer):
         self.in_class = False
         self.imports = []
 
-    def visit_ClassDef(self, node: cst.ClassDef) -> bool:
+    def visit_ClassDef(self, node: cst.ClassDef) -> None:
         """Track when we're inside a class."""
         self.in_class = True
-        return True
 
-    def leave_ClassDef(self, original_node: cst.ClassDef, updated_node: cst.ClassDef) -> cst.ClassDef:
+    def leave_ClassDef(self, original_node: cst.ClassDef) -> cst.ClassDef:
         """Track when we leave a class."""
         self.in_class = False
-        return updated_node
+        return original_node
 
     def visit_Import(self, node: cst.Import) -> None:
         """Track imports."""
@@ -300,10 +299,10 @@ class RegularFunctionTransformer(cst.CSTTransformer):
         """Track from imports."""
         self.imports.append(node)
 
-    def leave_FunctionDef(self, original_node: cst.FunctionDef, updated_node: cst.FunctionDef) -> cst.FunctionDef:
+    def leave_FunctionDef(self, original_node: cst.FunctionDef) -> cst.FunctionDef:
         """Extract regular functions."""
         if self.in_class:
-            return updated_node
+            return original_node
 
         # Skip if it's a curried function
         has_lambda_return = False
@@ -313,19 +312,21 @@ class RegularFunctionTransformer(cst.CSTTransformer):
                 break
 
         if has_lambda_return:
-            return updated_node
+            return original_node
 
         # Create new file for function
         func_file = self.functions_dir / f"{original_node.name.value}.py"
         
         # Generate imports
-        imports_code = "\n".join(imp.code for imp in self.imports)
+        imports_str = ""
+        for imp in self.imports:
+            imports_str += cst.Module([imp]).code + "\n"
 
         # Write function to new file
         with open(func_file, "w") as f:
-            if imports_code:
-                f.write(imports_code + "\n\n")
-            f.write(cst.Module([updated_node]).code)
+            if imports_str:
+                f.write(imports_str + "\n")
+            f.write(cst.Module([original_node]).code)
 
         # Replace function with import
         return cst.ImportFrom(
