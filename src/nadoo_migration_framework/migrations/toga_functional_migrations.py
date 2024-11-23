@@ -3,8 +3,9 @@
 from pathlib import Path
 from typing import Dict, List, Optional, Set
 import ast
-import libcst as cst
-from ..base import Migration
+import toml
+from dataclasses import dataclass
+from nadoo_migration_framework.base import Migration
 
 class CreateFunctionDirectoryMigration(Migration):
     """Create the functions directory structure."""
@@ -190,6 +191,7 @@ class ExtractRegularFunctionsMigration(Migration):
         super().__init__()
         self.version = "0.3.2"
         self.original_states: Dict[str, FileState] = {}
+        self.created_files: List[str] = []
 
     def check_if_needed(self) -> bool:
         """Check if migration is needed."""
@@ -271,6 +273,9 @@ class ExtractRegularFunctionsMigration(Migration):
                 with open(py_file, "w") as f:
                     f.write(modified_tree.code)
 
+                # Track created files
+                self.created_files.extend([str(functions_dir / f"{name}.py") for name in transformer.functions_to_remove])
+
             except Exception as e:
                 print(f"Error processing {py_file}: {e}")
 
@@ -278,6 +283,13 @@ class ExtractRegularFunctionsMigration(Migration):
         """Rollback the migration."""
         if not self.project_dir:
             raise ValueError("Project directory not set")
+
+        # Remove created files
+        for file_path in self.created_files:
+            try:
+                Path(file_path).unlink()
+            except Exception as e:
+                print(f"Error removing {file_path}: {e}")
 
         # Restore original states
         for state in self.original_states.values():

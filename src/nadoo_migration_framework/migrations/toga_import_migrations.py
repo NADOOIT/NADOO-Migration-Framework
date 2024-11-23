@@ -100,6 +100,7 @@ class ImportTransformer(cst.CSTVisitor):
         super().__init__()
         self.used_names = set()
         self.imports_to_remove = set()
+        self.module_imports = {}
 
     def visit_Name(self, node: cst.Name) -> None:
         """Track used names."""
@@ -115,9 +116,8 @@ class ImportTransformer(cst.CSTVisitor):
             if name.asname:
                 imported_name = name.asname.name.value
             else:
-                imported_name = name.name.value
-            if imported_name not in self.used_names:
-                self.imports_to_remove.add(imported_name)
+                imported_name = name.name.value.split(".")[0]
+            self.module_imports[imported_name] = node
 
     def visit_ImportFrom(self, node: cst.ImportFrom) -> None:
         """Track from imports."""
@@ -134,10 +134,19 @@ class ImportTransformer(cst.CSTVisitor):
         new_body = []
         for node in original_node.body:
             if isinstance(node, cst.Import):
-                names = [name for name in node.names if name.name.value not in self.imports_to_remove]
+                # Keep module imports that are used
+                names = []
+                for name in node.names:
+                    if name.asname:
+                        imported_name = name.asname.name.value
+                    else:
+                        imported_name = name.name.value.split(".")[0]
+                    if imported_name in self.used_names:
+                        names.append(name)
                 if names:
                     new_body.append(node.with_changes(names=names))
             elif isinstance(node, cst.ImportFrom):
+                # Keep from imports that are used
                 names = [name for name in node.names if name.name.value not in self.imports_to_remove]
                 if names:
                     new_body.append(node.with_changes(names=names))

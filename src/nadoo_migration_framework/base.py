@@ -3,8 +3,11 @@
 import subprocess
 from abc import ABC, abstractmethod
 from datetime import datetime
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional, Tuple
 from pathlib import Path
+
+from .config import Config
+from .version_compatibility import VersionCompatibilityMatrix
 
 class Migration(ABC):
     """Base class for all migrations."""
@@ -13,7 +16,9 @@ class Migration(ABC):
         """Initialize migration."""
         self.version = self._extract_version()
         self.dependencies: List[str] = []
-        self.project_dir: Path = None
+        self.project_dir: Optional[Path] = None
+        self.config: Optional[Config] = None
+        self.version_matrix = VersionCompatibilityMatrix()
     
     def _extract_version(self) -> str:
         """Extract version from class name."""
@@ -22,32 +27,105 @@ class Migration(ABC):
             # For test migrations, strip 'Test' prefix
             return class_name[4:]
         return class_name
+
+    @property
+    def is_launchpad_project(self) -> bool:
+        """Check if this is a Launchpad-generated project."""
+        return self.config.is_launchpad_project() if self.config else False
+
+    def set_project_dir(self, project_dir: Path) -> None:
+        """Set the project directory and initialize configuration.
+        
+        Args:
+            project_dir: Path to the project directory
+        """
+        self.project_dir = project_dir
+        self.config = Config(project_dir)
+
+    def check_version_compatibility(self) -> Tuple[bool, List[str]]:
+        """Check version compatibility for the migration.
+        
+        Returns:
+            Tuple[bool, List[str]]: (is_compatible, list of incompatibility reasons)
+        """
+        if not self.config:
+            return False, ["Configuration not initialized"]
+
+        framework_type = self.config.get_framework_type()
+        if not framework_type:
+            return False, ["Framework type not detected"]
+
+        current_version = self.config.get_framework_version()
+        if not current_version:
+            return False, ["Current framework version not detected"]
+
+        # Check framework compatibility
+        is_compatible, reasons = self.version_matrix.check_framework_compatibility(
+            framework_type, current_version, self.version
+        )
+        if not is_compatible:
+            return False, reasons
+
+        # If it's a Launchpad project, also check template compatibility
+        if self.is_launchpad_project:
+            template = self.config.get_launchpad_template()
+            template_version = self.config.get_template_config().get("version")
+            if template and template_version:
+                is_compatible, template_reasons = self.version_matrix.check_template_compatibility(
+                    template, current_version, template_version
+                )
+                if not is_compatible:
+                    reasons.extend(template_reasons)
+                    return False, reasons
+
+        return True, []
+
+    def get_compatible_versions(self) -> List[str]:
+        """Get list of compatible versions for the current framework.
+        
+        Returns:
+            List[str]: List of compatible versions
+        """
+        if not self.config:
+            return []
+
+        framework_type = self.config.get_framework_type()
+        current_version = self.config.get_framework_version()
+        if not framework_type or not current_version:
+            return []
+
+        return self.version_matrix.get_compatible_versions(framework_type, current_version)
+
+    def get_required_dependencies(self) -> Dict[str, str]:
+        """Get required dependencies for the target version.
+        
+        Returns:
+            Dict[str, str]: Dictionary of required dependencies and their versions
+        """
+        if not self.config:
+            return {}
+
+        framework_type = self.config.get_framework_type()
+        if not framework_type:
+            return {}
+
+        return self.version_matrix.get_required_dependencies(framework_type, self.version)
         
     def _update_version(self, version: str) -> None:
-        """Update version in pyproject.toml."""
-        if not self.project_dir:
-            return
-            
-        toml_file = self.project_dir / "pyproject.toml"
-        if not toml_file.exists():
-            return
-            
-        import toml
-        with open(toml_file) as f:
-            data = toml.load(f)
-            
-        if "tool" not in data:
-            data["tool"] = {}
-        if "briefcase" not in data["tool"]:
-            data["tool"]["briefcase"] = {}
-            
-        data["tool"]["briefcase"]["version"] = version
+        """Update version in configuration.
         
-        with open(toml_file, "w") as f:
-            toml.dump(data, f)
+        Args:
+            version: New version string
+        """
+        if self.config:
+            self.config.update_version(version)
     
     def _git_commit(self, message: str) -> None:
-        """Create a Git commit with the given message."""
+        """Create a Git commit with the given message.
+        
+        Args:
+            message: Commit message
+        """
         try:
             # Stage all changes
             subprocess.run(['git', 'add', '.'], check=True)
@@ -58,6 +136,14 @@ class Migration(ABC):
     
     def up(self) -> None:
         """Apply the migration."""
+        if not self.project_dir:
+            raise ValueError("Project directory not set. Call set_project_dir() first.")
+
+        # Check version compatibility
+        is_compatible, reasons = self.check_version_compatibility()
+        if not is_compatible:
+            raise ValueError(f"Version incompatibility: {', '.join(reasons)}")
+
         try:
             # Create a commit before applying the migration
             self._git_commit(f"Pre-migration state for {self.version}")
@@ -81,6 +167,9 @@ class Migration(ABC):
     
     def down(self) -> None:
         """Rollback the migration."""
+        if not self.project_dir:
+            raise ValueError("Project directory not set. Call set_project_dir() first.")
+
         try:
             # Create a commit before rolling back
             self._git_commit(f"Pre-rollback state for {self.version}")
@@ -103,32 +192,22 @@ class Migration(ABC):
             except subprocess.CalledProcessError:
                 pass  # If rollback fails, let the original error propagate
             raise e
-    
-    @abstractmethod
-    def check_if_needed(self) -> bool:
-        """Check if migration is needed.
-        
-        Returns:
-            bool: True if migration should be applied, False otherwise.
-        """
-        pass
-    
+
     @abstractmethod
     def _up(self) -> None:
-        """Internal method to apply the migration.
-        
-        This method should contain the actual migration logic.
-        """
+        """Implement the migration logic."""
         pass
-    
+
     @abstractmethod
     def _down(self) -> None:
-        """Internal method to rollback the migration.
-        
-        This method should contain the actual rollback logic.
-        """
+        """Implement the rollback logic."""
         pass
-    
+
+    @abstractmethod
+    def check_if_needed(self) -> bool:
+        """Check if migration is needed."""
+        pass
+
     def get_state(self) -> Dict[str, Any]:
         """Get migration state.
         

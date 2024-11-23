@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  test:
+    build: .
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONPATH=/app/src
+    command: pytest -v --cov=nadoo_migration_framework tests/
+  
+  python38:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PYTHON_VERSION: 3.8
+    volumes:
+      - .:/app
+  
+  python39:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PYTHON_VERSION: 3.9
+    volumes:
+      - .:/app
+  
+  python310:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PYTHON_VERSION: "3.10"
+    volumes:
+      - .:/app
