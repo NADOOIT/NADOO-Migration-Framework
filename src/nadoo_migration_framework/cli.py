@@ -15,22 +15,28 @@ from .functions import project_structure
 from .version_management import VersionManager, VersionType
 from .compatibility import CompatibilityChecker
 from .migrations import MigrationEngine
+from .cli.update import update
+from .cli.brain_commands import brain
 
 @click.group()
 def cli():
     """NADOO Migration Framework CLI."""
     pass
 
+cli.add_command(update, name="update")
+cli.add_command(brain, name="brain")
+
 @cli.command()
 @click.argument('project_path', type=click.Path(exists=True, file_okay=False, dir_okay=True), default='.')
 @click.option('--auto', is_flag=True, help='Automatically execute migrations without confirmation')
 @click.option('--dry-run', is_flag=True, help='Show what would be done without making changes')
-@click.option('--backup/--no-backup', default=True, help='Create backup before migration')
+@click.option('--backup/--no-backup', default=True, help='Create a backup before migration')
 def migrate(project_path: str, auto: bool, dry_run: bool, backup: bool):
     """Migrate a project to NADOO Framework standards."""
     try:
         engine = MigrationEngine(Path(project_path))
         plan = engine.plan_migration()
+        plan.backup_needed = backup
         
         if dry_run:
             click.echo("\nMigration Plan:")
@@ -48,14 +54,15 @@ def migrate(project_path: str, auto: bool, dry_run: bool, backup: bool):
                 click.echo("Migration cancelled.")
                 return
         
-        plan.backup_needed = backup
         if engine.execute_plan(plan):
-            click.echo("Migration completed successfully!")
+            click.echo("\nMigration completed successfully!")
         else:
-            click.echo("Migration failed. Check the error messages above.", err=True)
+            click.echo("\nMigration failed. Check the error messages above.")
+            sys.exit(1)
             
     except Exception as e:
-        click.echo(f"Error during migration: {e}", err=True)
+        click.echo(f"Error during migration: {str(e)}")
+        sys.exit(1)
 
 @cli.command()
 @click.argument('project_path', type=click.Path(exists=True, file_okay=False, dir_okay=True), default='.')

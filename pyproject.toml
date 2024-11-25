@@ -1,55 +1,31 @@
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "nadoo-migration-framework"
-version = "0.1.2"
-description = "A powerful, Git-based migration framework for NADOO Framework projects"
-authors = ["NADOO IT <info@nadoo.it>"]
-license = "MIT"
+version = "0.2.5"
+description = "A framework for migrating NADOO projects"
+authors = ["NADOO IT Team <info@nadoo.it>"]
 readme = "README.md"
-homepage = "https://github.com/NADOOIT/nadoo-migration-framework"
-repository = "https://github.com/NADOOIT/nadoo-migration-framework"
-documentation = "https://github.com/NADOOIT/nadoo-migration-framework#readme"
-keywords = ["nadoo", "migration", "framework"]
-classifiers = [
-    "Development Status :: 4 - Beta",
-    "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-    "Topic :: Software Development :: Libraries :: Python Modules",
-]
-packages = [
-    { include = "nadoo_migration_framework", from = "src" }
-]
+packages = [{include = "nadoo_migration_framework", from = "src"}]
 
 [tool.poetry.dependencies]
-python = "^3.8"
-click = "^8.1.0"
-toml = "^0.10.2"
-pathlib = "^1.0.1"
-nadoo-migration-framework = "^0.1.2"  # Self-dependency for framework features
+python = ">=3.9,<4.0"
+click = ">=8.1.0,<9.0.0"
+pathlib = ">=1.0.1,<2.0.0"
+toml = ">=0.10.2,<0.11.0"
+toga = {version = ">=0.4.0", platform = "darwin", extras = ["cocoa"]}
+
+[tool.poetry.scripts]
+nadoo-migrate = "nadoo_migration_framework.cli:cli"
+nadoo-init = "nadoo_migration_framework.cli:init_project"
+nadoo-publish = "nadoo_migration_framework.cli:publish"
+nadoo-update = "nadoo_migration_framework.cli:update"
+
+[tool.nadoo]
+version = "0.2.5"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.0.0"
-pytest-mock = "^3.12.0"
-black = "^23.0.0"
-isort = "^5.0.0"
-mypy = "^1.0.0"
-pylint = "^2.0.0"
-
-[tool.poetry.scripts]
-nadoo = "nadoo_migration_framework.cli:cli"
-nadoo-migrate = "nadoo_migration_framework.cli:migrate"
-nadoo-add = "nadoo_migration_framework.cli:add_package"
-nadoo-init = "nadoo_migration_framework.cli:init_project"
-nadoo-publish = "nadoo_migration_framework.cli:publish"
-
-
-[tool.nadoo]
-version = "0.1.2"
+flake8 = "^7.0.0"
