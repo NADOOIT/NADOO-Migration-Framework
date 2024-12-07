@@ -1,0 +1,11 @@
+Metadata-Version: 2.1
+Briefcase-Version: 0.3.20
+Name: nadoo_migration_framework
+Formal-Name: NADOO Migration Framework
+App-ID: it.nadoo.nadoo-migration-framework
+Version: 0.2.5
+Home-page: https://nadoo.it
+Download-URL: https://nadoo.it
+Author: NADOO IT Team
+Author-email: info@nadoo.it
+Summary: A framework for migrating NADOO projects

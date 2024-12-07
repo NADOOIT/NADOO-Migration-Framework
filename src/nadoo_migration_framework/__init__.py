@@ -1,14 +1,8 @@
-"""NADOO Migration Framework - A powerful, Git-based migration framework."""
+"""Main package for NADOO Migration Framework."""
 
-from .base import Migration
-from .manager import MigrationManager
-from .analyzers import ProjectAnalyzer, NADOOProjectAnalyzer, NonNADOOProjectAnalyzer
+__version__ = "0.3.3"
 
-__version__ = "0.1.0"
-__all__ = [
-    "Migration",
-    "MigrationManager",
-    "ProjectAnalyzer",
-    "NADOOProjectAnalyzer",
-    "NonNADOOProjectAnalyzer"
-]
+from .migration_base import MigrationBase
+from .migrations.migration_manager import MigrationManager
+
+__all__ = ["MigrationBase", "MigrationManager"]

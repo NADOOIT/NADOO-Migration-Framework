@@ -1,0 +1,6 @@
+2024-11-26 19:47:10,560 - INFO - Migrating project nadoo-migration-framework
+2024-11-26 19:47:10,561 - INFO - Created Briefcase directory structure
+2024-11-26 19:47:10,567 - INFO - Migrated files and updated imports
+2024-11-26 19:47:10,568 - INFO - Updated pyproject.toml
+2024-11-26 19:47:10,568 - INFO - Created backup of old src directory at /Users/christophbackhaus/Documents/GitHub/NADOO-Migration-Framework/src.bak
+2024-11-26 19:47:10,568 - INFO - Successfully migrated nadoo-migration-framework to Briefcase structure

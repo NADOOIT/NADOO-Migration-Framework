@@ -1,0 +1,643 @@
+Date/Time:       2024-11-25 12:40:30 
+Command line:    /opt/homebrew/Caskroom/miniconda/base/bin/briefcase dev
+
+OS Release:      Darwin 23.5.0
+OS Version:      Darwin Kernel Version 23.5.0: Wed May  1 20:14:38 PDT 2024; root:xnu-10063.121.3~5/RELEASE_ARM64_T6020
+Architecture:    arm64
+Platform:        macOS-14.5-arm64-arm-64bit
+
+Python exe:      /opt/homebrew/Caskroom/miniconda/base/bin/python
+Python version:  3.12.7 | packaged by Anaconda, Inc. | (main, Oct  4 2024, 08:22:19) [Clang 14.0.6 ]
+Virtual env:     False
+Conda env:       True
+
+Briefcase:       0.3.20
+Target platform: macOS
+Target format:   None
+
+Environment Variables:
+	CODEIUM_EDITOR_APP_ROOT=/Applications/Windsurf.app/Contents/Resources/app
+	COMMAND_MODE=unix2003
+	CONDA_DEFAULT_ENV=base
+	CONDA_EXE=/opt/homebrew/Caskroom/miniconda/base/bin/conda
+	CONDA_PREFIX=/opt/homebrew/Caskroom/miniconda/base
+	CONDA_PROMPT_MODIFIER=(base) 
+	CONDA_PYTHON_EXE=/opt/homebrew/Caskroom/miniconda/base/bin/python
+	CONDA_SHLVL=1
+	CPLUS_INCLUDE_PATH=/Users/christophbackhaus/.wasmedge/include
+	CPPFLAGS=-I/opt/homebrew/opt/libomp/include
+	C_INCLUDE_PATH=/Users/christophbackhaus/.wasmedge/include
+	ELECTRON_RUN_AS_NODE=1
+	HOME=/Users/christophbackhaus
+	HOMEBREW_CELLAR=/opt/homebrew/Cellar
+	HOMEBREW_PREFIX=/opt/homebrew
+	HOMEBREW_REPOSITORY=/opt/homebrew
+	INFOPATH=/opt/homebrew/share/info:
+	LC_CTYPE=UTF-8
+	LDFLAGS=-L/opt/homebrew/opt/libomp/lib
+	LESS=-R
+	LIBRARY_PATH=/Users/christophbackhaus/.wasmedge/lib
+	LOGNAME=christophbackhaus
+	LSCOLORS=Gxfxcxdxbxegedabagacad
+	LS_COLORS=di=1;36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43
+	MallocNanoZone=0
+	OLDPWD=/
+	ORIGINAL_XDG_CURRENT_DESKTOP=undefined
+	PAGER=less
+	PATH=/opt/homebrew/Caskroom/miniconda/base/bin:/opt/homebrew/Caskroom/miniconda/base/condabin:/Users/christophbackhaus/.local/bin:/Users/christophbackhaus/.codeium/windsurf/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin:/Library/Frameworks/Python.framework/Versions/3.12/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/opt/podman/bin:/Users/christophbackhaus/.cargo/bin:/Users/christophbackhaus/.wasmedge/bin
+	PWD=/Users/christophbackhaus/Documents/GitHub/NADOO-Migration-Framework
+	SHELL=/bin/zsh
+	SHLVL=0
+	SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.IcxuQM2M5P/Listeners
+	TMPDIR=/var/folders/47/kfsw22311g55y6_jmdglpb_h0000gn/T/
+	USER=christophbackhaus
+	VSCODE_AMD_ENTRYPOINT=vs/workbench/api/node/extensionHostProcess
+	VSCODE_CODE_CACHE_PATH=/Users/christophbackhaus/Library/Application Support/Windsurf/CachedData/ee432f33493a26d92a179ba5df483bdc6b8aa047
+	VSCODE_CRASH_REPORTER_PROCESS_TYPE=extensionHost
+	VSCODE_CWD=/
+	VSCODE_HANDLES_UNCAUGHT_ERRORS=true
+	VSCODE_IPC_HOOK=/Users/christophbackhaus/Library/Application Support/Windsurf/1.94-main.sock
+	VSCODE_NLS_CONFIG={"userLocale":"de","osLocale":"de-de","resolvedLanguage":"en","defaultMessagesFile":"/Applications/Windsurf.app/Contents/Resources/app/out/nls.messages.json","locale":"de","availableLanguages":{}}
+	VSCODE_PID=5700
+	WASMEDGE_LIB_DIR=/Users/christophbackhaus/.wasmedge/lib
+	XPC_FLAGS=0x0
+	XPC_SERVICE_NAME=application.com.exafunction.windsurf.60149157.60149546
+	ZSH=/Users/christophbackhaus/.oh-my-zsh
+	_=/Applications/Windsurf.app/Contents/MacOS/Electron
+	__CFBundleIdentifier=com.exafunction.windsurf
+	__CF_USER_TEXT_ENCODING=0x1F5:0x0:0x3
+
+pyproject.toml:
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "nadoo-migration-framework"
+version = "0.2.5"
+description = "A framework for migrating NADOO projects"
+authors = ["NADOO IT Team <info@nadoo.it>"]
+readme = "README.md"
+packages = [{include = "nadoo_migration_framework", from = "src"}]
+
+[tool.poetry.dependencies]
+python = ">=3.9"
+click = ">=8.1.0,<9.0.0"
+pathlib = ">=1.0.1,<2.0.0"
+toml = ">=0.10.2,<0.11.0"
+toga = {version = ">=0.4.0", platform = "darwin", extras = ["cocoa"]}
+requests = "^2.32.3"
+speechrecognition = "^3.11.0"
+pyttsx3 = "^2.98"
+pyaudio = "^0.2.14"
+
+[tool.poetry.scripts]
+nadoo-migrate = "nadoo_migration_framework.cli:cli"
+nadoo-init = "nadoo_migration_framework.cli:init_project"
+nadoo-publish = "nadoo_migration_framework.cli:publish"
+nadoo-update = "nadoo_migration_framework.cli:update"
+
+[tool.nadoo]
+version = "0.2.5"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.0.0"
+flake8 = "^7.0.0"
+black = "^24.10.0"
+
+[tool.briefcase]
+project_name = "NADOO Migration Framework"
+bundle = "it.nadoo"
+version = "0.2.5"
+url = "https://nadoo.it"
+license = "MIT"
+author = "NADOO IT Team"
+author_email = "info@nadoo.it"
+
+[tool.briefcase.app.nadoo_migration_framework]
+formal_name = "NADOO Migration Framework"
+description = "A framework for migrating NADOO projects"
+icon = "src/nadoo_migration_framework/resources/nadoo-icon"
+sources = ["src/nadoo_migration_framework"]
+requires = [
+    "toga>=0.4.0",
+    "click>=8.1.0",
+    "pathlib>=1.0.1",
+    "toml>=0.10.2",
+    "requests>=2.32.3",
+    "speechrecognition>=3.11.0",
+    "pyttsx3>=2.98",
+    "pyaudio>=0.2.14"
+]
+
+[tool.briefcase.app.nadoo_migration_framework.macOS]
+requires = [
+    "toga-cocoa>=0.4.0",
+    "std-nslog>=1.0.0"
+]
+
+Briefcase Log:
+[12:40:27]                                                                                                                                                             config.py:558
+           *************************************************************************                                                                                   config.py:558
+           ** WARNING: License Definition for the Project is Deprecated           **                                                                                   config.py:558
+           *************************************************************************                                                                                   config.py:558
+                                                                                                                                                                       config.py:558
+               Briefcase now uses PEP 621 format for license definitions.                                                                                              config.py:558
+                                                                                                                                                                       config.py:558
+               Previously, the name of the license was assigned to the 'license'                                                                                       config.py:558
+               field in pyproject.toml. For PEP 621, the name of the license is                                                                                        config.py:558
+               assigned to 'license.text' or the name of the file containing the                                                                                       config.py:558
+               license is assigned to 'license.file'.                                                                                                                  config.py:558
+                                                                                                                                                                       config.py:558
+               The current configuration for the Project has a 'license' field                                                                                         config.py:558
+               that is specified as a string:                                                                                                                          config.py:558
+                                                                                                                                                                       config.py:558
+                   license = "MIT"                                                                                                                                     config.py:558
+                                                                                                                                                                       config.py:558
+               To use the PEP 621 format (and to remove this warning), specify that                                                                                    config.py:558
+               the LICENSE file contains the license for the Project:                                                                                                  config.py:558
+                                                                                                                                                                       config.py:558
+                   license.file = "LICENSE"                                                                                                                            config.py:558
+                                                                                                                                                                       config.py:558
+           *************************************************************************                                                                                   config.py:558
+                                                                                                                                                                          dev.py:240
+           [nadoo_migration_framework] Installing requirements...                                                                                                         dev.py:240
+           Installing dev requirements... started                                                                                                                          dev.py:89
+                                                                                                                                                                   subprocess.py:827
+           >>> Running Command:                                                                                                                                    subprocess.py:827
+           >>>     /opt/homebrew/Caskroom/miniconda/base/bin/python -u -X utf8 -m pip install --upgrade 'toga>=0.4.0' 'click>=8.1.0' 'pathlib>=1.0.1'              subprocess.py:827
+           'toml>=0.10.2' 'requests>=2.32.3' 'speechrecognition>=3.11.0' 'pyttsx3>=2.98' 'pyaudio>=0.2.14' 'toga-cocoa>=0.4.0' 'std-nslog>=1.0.0'                                   
+           >>> Working Directory:                                                                                                                                  subprocess.py:827
+           >>>     /Users/christophbackhaus/Documents/GitHub/NADOO-Migration-Framework                                                                             subprocess.py:827
+[12:40:28] Requirement already satisfied: toga>=0.4.0 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (0.4.8)                                subprocess.py:195
+           Requirement already satisfied: click>=8.1.0 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (8.1.7)                               subprocess.py:195
+           Requirement already satisfied: pathlib>=1.0.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (1.0.1)                             subprocess.py:195
+           Requirement already satisfied: toml>=0.10.2 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (0.10.2)                              subprocess.py:195
+           Requirement already satisfied: requests>=2.32.3 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (2.32.3)                          subprocess.py:195
+           Requirement already satisfied: speechrecognition>=3.11.0 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (3.11.0)                 subprocess.py:195
+           Requirement already satisfied: pyttsx3>=2.98 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (2.98)                               subprocess.py:195
+           Requirement already satisfied: pyaudio>=0.2.14 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (0.2.14)                           subprocess.py:195
+           Requirement already satisfied: toga-cocoa>=0.4.0 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (0.4.8)                          subprocess.py:195
+[12:40:29] Collecting std-nslog>=1.0.0                                                                                                                             subprocess.py:195
+             Using cached std_nslog-1.0.3-py3-none-any.whl.metadata (3.6 kB)                                                                                       subprocess.py:195
+           Requirement already satisfied: fonttools<5.0.0,>=4.42.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from toga-cocoa>=0.4.0)  subprocess.py:195
+           (4.55.0)                                                                                                                                                                 
+           Requirement already satisfied: rubicon-objc<0.5.0,>=0.4.9 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from                   subprocess.py:195
+           toga-cocoa>=0.4.0) (0.4.9)                                                                                                                                               
+           Requirement already satisfied: toga-core==0.4.8 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from toga-cocoa>=0.4.0) (0.4.8)  subprocess.py:195
+           Requirement already satisfied: travertino>=0.3.0 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from                            subprocess.py:195
+           toga-core==0.4.8->toga-cocoa>=0.4.0) (0.3.0)                                                                                                                             
+           Requirement already satisfied: charset-normalizer<4,>=2 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from requests>=2.32.3)   subprocess.py:195
+           (3.3.2)                                                                                                                                                                  
+           Requirement already satisfied: idna<4,>=2.5 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from requests>=2.32.3) (3.7)         subprocess.py:195
+           Requirement already satisfied: urllib3<3,>=1.21.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from requests>=2.32.3) (2.2.3) subprocess.py:195
+           Requirement already satisfied: certifi>=2017.4.17 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from requests>=2.32.3)         subprocess.py:195
+           (2024.8.30)                                                                                                                                                              
+           Requirement already satisfied: typing-extensions in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from speechrecognition>=3.11.0) subprocess.py:195
+           (4.12.2)                                                                                                                                                                 
+           Requirement already satisfied: pyobjc>=2.4 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from pyttsx3>=2.98) (10.3.1)          subprocess.py:195
+           Requirement already satisfied: pyobjc-core==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from                          subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-AddressBook==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from         subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-AppleScriptKit==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from      subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-ApplicationServices==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-Automator==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from           subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-CFNetwork==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from           subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-Cocoa==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from               subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-CoreAudio==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from           subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-CoreAudioKit==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from        subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-CoreData==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from            subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-CoreMIDI==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from            subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-CoreServices==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from        subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-CoreText==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from            subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-DiscRecording==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from       subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-DiscRecordingUI==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from     subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-DiskArbitration==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from     subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-DVDPlayback==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from         subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-ExceptionHandling==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from   subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-InstallerPlugins==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from    subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-IOBluetooth==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from         subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-IOBluetoothUI==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from       subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-LatentSemanticMapping==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages     subprocess.py:195
+           (from pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                               
+           Requirement already satisfied: pyobjc-framework-LaunchServices==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from      subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-OSAKit==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from              subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-PreferencePanes==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from     subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-Quartz==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from              subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-ScreenSaver==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from         subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-Security==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from            subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-SecurityFoundation==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from  subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-SecurityInterface==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from   subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-SearchKit==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from           subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-SyncServices==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from        subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-SystemConfiguration==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-WebKit==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from              subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-AppleScriptObjC==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from     subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-CoreLocation==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from        subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-CoreWLAN==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from            subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-ImageCaptureCore==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from    subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-IOSurface==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from           subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-NetFS==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from               subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-OpenDirectory==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from       subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-ServiceManagement==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from   subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-iTunesLibrary==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from       subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-AVFoundation==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from        subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-CoreMedia==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from           subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-CoreMediaIO==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from         subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-StoreKit==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from            subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-SceneKit==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from            subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-libdispatch==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from         subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-libxpc==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from              subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-AudioVideoBridging==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from  subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-Accounts==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from            subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-EventKit==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from            subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-GameCenter==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from          subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-Social==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from              subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-GameKit==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from             subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-VideoToolbox==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from        subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-AVKit==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from               subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-GameController==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from      subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-MapKit==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from              subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-MediaAccessibility==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from  subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-MediaLibrary==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from        subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-MediaToolbox==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from        subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-SpriteKit==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from           subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-CloudKit==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from            subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-CoreBluetooth==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from       subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-CryptoTokenKit==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from      subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-FinderSync==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from          subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-LocalAuthentication==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-MultipeerConnectivity==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages     subprocess.py:195
+           (from pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                               
+           Requirement already satisfied: pyobjc-framework-NotificationCenter==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from  subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-Contacts==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from            subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-ContactsUI==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from          subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-Metal==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from               subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-MetalKit==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from            subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-ModelIO==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from             subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-NetworkExtension==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from    subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-Photos==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from              subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-PhotosUI==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from            subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-GameplayKit==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from         subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-Intents==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from             subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-MediaPlayer==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from         subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-SafariServices==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from      subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-ColorSync==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from           subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-CoreML==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from              subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-CoreSpotlight==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from       subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-ExternalAccessory==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from   subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-MetalPerformanceShaders==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages   subprocess.py:195
+           (from pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                               
+           Requirement already satisfied: pyobjc-framework-Vision==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from              subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-AdSupport==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from           subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-BusinessChat==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from        subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-NaturalLanguage==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from     subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-Network==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from             subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-UserNotifications==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from   subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-VideoSubscriberAccount==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages    subprocess.py:195
+           (from pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                               
+           Requirement already satisfied: pyobjc-framework-AuthenticationServices==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages    subprocess.py:195
+           (from pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                               
+           Requirement already satisfied: pyobjc-framework-AutomaticAssessmentConfiguration==10.3.1 in                                                             subprocess.py:195
+           /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                            
+           Requirement already satisfied: pyobjc-framework-CoreHaptics==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from         subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-CoreMotion==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from          subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-DeviceCheck==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from         subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-ExecutionPolicy==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from     subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-FileProvider==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from        subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-FileProviderUI==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from      subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-LinkPresentation==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from    subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-OSLog==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from               subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-PencilKit==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from           subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-PushKit==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from             subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-QuickLookThumbnailing==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages     subprocess.py:195
+           (from pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                               
+           Requirement already satisfied: pyobjc-framework-Speech==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from              subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-SoundAnalysis==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from       subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-SystemExtensions==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from    subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-Accessibility==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from       subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-AdServices==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from          subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-AppTrackingTransparency==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages   subprocess.py:195
+           (from pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                               
+           Requirement already satisfied: pyobjc-framework-CallKit==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from             subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-ClassKit==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from            subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-KernelManagement==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from    subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-MetalPerformanceShadersGraph==10.3.1 in                                                                 subprocess.py:195
+           /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                            
+           Requirement already satisfied: pyobjc-framework-MLCompute==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from           subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-PassKit==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from             subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-ReplayKit==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from           subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-ScreenTime==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from          subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-UniformTypeIdentifiers==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages    subprocess.py:195
+           (from pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                               
+           Requirement already satisfied: pyobjc-framework-UserNotificationsUI==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-Virtualization==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from      subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-DataDetection==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from       subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-IntentsUI==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from           subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-LocalAuthenticationEmbeddedUI==10.3.1 in                                                                subprocess.py:195
+           /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                            
+           Requirement already satisfied: pyobjc-framework-MailKit==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from             subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-MetricKit==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from           subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-PHASE==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from               subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-ShazamKit==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from           subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-ScreenCaptureKit==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from    subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-AVRouting==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from           subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-BackgroundAssets==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from    subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-ExtensionKit==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from        subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-HealthKit==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from           subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-MetalFX==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from             subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-SafetyKit==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from           subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-SharedWithYouCore==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from   subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-SharedWithYou==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from       subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-ThreadNetwork==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from       subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-Cinematic==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from           subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-SensitiveContentAnalysis==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages  subprocess.py:195
+           (from pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                               
+           Requirement already satisfied: pyobjc-framework-Symbols==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from             subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-BrowserEngineKit==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from    subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-CalendarStore==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from       subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-Collaboration==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from       subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-DictionaryServices==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from  subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-FSEvents==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from            subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-InputMethodKit==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from      subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-InstantMessage==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from      subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Requirement already satisfied: pyobjc-framework-ScriptingBridge==10.3.1 in /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages (from     subprocess.py:195
+           pyobjc>=2.4->pyttsx3>=2.98) (10.3.1)                                                                                                                                     
+           Using cached std_nslog-1.0.3-py3-none-any.whl (4.8 kB)                                                                                                  subprocess.py:195
+           Installing collected packages: std-nslog                                                                                                                subprocess.py:195
+           Successfully installed std-nslog-1.0.3                                                                                                                  subprocess.py:195
+           >>> Return code: 0                                                                                                                                      subprocess.py:827
+           Installing dev requirements... done                                                                                                                             dev.py:89
+                                                                                                                                                                          dev.py:250
+           [nadoo_migration_framework] Starting in dev mode...                                                                                                            dev.py:250
+                                                                                                                                                                   subprocess.py:827
+           >>> Running Command:                                                                                                                                    subprocess.py:827
+           >>>     /opt/homebrew/Caskroom/miniconda/base/bin/python -c 'import runpy,                                                                              subprocess.py:827
+           sys;sys.path.pop(0);sys.argv.extend([]);runpy.run_module("nadoo_migration_framework", run_name="__main__", alter_sys=True)'                                              
+           >>> Working Directory:                                                                                                                                  subprocess.py:827
+           >>>     /Users/christophbackhaus                                                                                                                        subprocess.py:827
+           >>> Environment Overrides:                                                                                                                              subprocess.py:827
+           >>>     PYTHONPATH=/Users/christophbackhaus/Documents/GitHub/NADOO-Migration-Framework/src                                                              subprocess.py:827
+           >>>     PYTHONUNBUFFERED=1                                                                                                                              subprocess.py:827
+           >>>     PYTHONDEVMODE=1                                                                                                                                 subprocess.py:827
+           >>>     PYTHONUTF8=1                                                                                                                                    subprocess.py:827
+           ===========================================================================                                                                                    run.py:171
+[12:40:30] /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages/speech_recognition/__init__.py:7: DeprecationWarning: 'aifc' is deprecated and       subprocess.py:195
+           slated for removal in Python 3.13                                                                                                                                        
+             import aifc                                                                                                                                           subprocess.py:195
+           /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages/speech_recognition/__init__.py:8: DeprecationWarning: 'audioop' is deprecated and    subprocess.py:195
+           slated for removal in Python 3.13                                                                                                                                        
+             import audioop                                                                                                                                        subprocess.py:195
+           Traceback (most recent call last):                                                                                                                      subprocess.py:195
+             File "<string>", line 1, in <module>                                                                                                                  subprocess.py:195
+             File "<frozen runpy>", line 226, in run_module                                                                                                        subprocess.py:195
+             File "<frozen runpy>", line 98, in _run_module_code                                                                                                   subprocess.py:195
+             File "<frozen runpy>", line 88, in _run_code                                                                                                          subprocess.py:195
+             File "/Users/christophbackhaus/Documents/GitHub/NADOO-Migration-Framework/src/nadoo_migration_framework/__main__.py", line 16, in <module>            subprocess.py:195
+               migrate(project_path)                                                                                                                               subprocess.py:195
+             File "/opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages/click/core.py", line 1157, in __call__                                       subprocess.py:195
+               return self.main(*args, **kwargs)                                                                                                                   subprocess.py:195
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^                                                                                                                   subprocess.py:195
+             File "/opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages/click/core.py", line 1067, in main                                           subprocess.py:195
+               args = list(args)                                                                                                                                   subprocess.py:195
+                      ^^^^^^^^^^                                                                                                                                   subprocess.py:195
+           TypeError: 'PosixPath' object is not iterable                                                                                                           subprocess.py:195
+                                                                                                                                                                      __main__.py:44
+           Problem running app nadoo_migration_framework.                                                                                                             __main__.py:45
+           Saving log... started                                                                                                                                      console.py:391
+
+Main thread traceback:
+╭─────────────────────────────────────────────────────────────────────── Traceback (most recent call last) ────────────────────────────────────────────────────────────────────────╮
+│ /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages/briefcase/__main__.py:29 in main                                                                              │
+│                                                                                                                                                                                  │
+│   26 │   │   │   Path.cwd() / "pyproject.toml",                                                                                                                                  │
+│   27 │   │   │   overrides=overrides,                                                                                                                                            │
+│   28 │   │   )                                                                                                                                                                   │
+│ ❱ 29 │   │   command(**options)                                                                                                                                                  │
+│   30 │   except HelpText as e:                                                                                                                                                   │
+│   31 │   │   logger.info()                                                                                                                                                       │
+│   32 │   │   logger.info(str(e))                                                                                                                                                 │
+│                                                                                                                                                                                  │
+│ ╭──────────────────────────────────────────────────────── locals ─────────────────────────────────────────────────────────╮                                                      │
+│ │       command = <briefcase.commands.dev.DevCommand object at 0x1029dda60>                                               │                                                      │
+│ │       console = <briefcase.console.Console object at 0x1029dda90>                                                       │                                                      │
+│ │             e = BriefcaseCommandError('Problem running app nadoo_migration_framework.')                                 │                                                      │
+│ │ extra_cmdline = []                                                                                                      │                                                      │
+│ │        logger = <briefcase.console.Log object at 0x102b7f8f0>                                                           │                                                      │
+│ │       options = {'appname': None, 'update_requirements': False, 'run_app': True, 'test_mode': False, 'passthrough': []} │                                                      │
+│ │     overrides = {}                                                                                                      │                                                      │
+│ │       printer = <briefcase.console.Printer object at 0x103b53290>                                                       │                                                      │
+│ │        result = 200                                                                                                     │                                                      │
+│ ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯                                                      │
+│                                                                                                                                                                                  │
+│ /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages/briefcase/commands/dev.py:252 in __call__                                                                     │
+│                                                                                                                                                                                  │
+│   249 │   │   │   else:                                                                                                                                                          │
+│   250 │   │   │   │   self.logger.info("Starting in dev mode...", prefix=app.app_name)                                                                                           │
+│   251 │   │   │   env = self.get_environment(app, test_mode=test_mode)                                                                                                           │
+│ ❱ 252 │   │   │   return self.run_dev_app(                                                                                                                                       │
+│   253 │   │   │   │   app,                                                                                                                                                       │
+│   254 │   │   │   │   env,                                                                                                                                                       │
+│   255 │   │   │   │   test_mode=test_mode,                                                                                                                                       │
+│                                                                                                                                                                                  │
+│ ╭──────────────────────────────────────────────────────────────────── locals ────────────────────────────────────────────────────────────────────╮                               │
+│ │                 app = <it.nadoo.nadoo-migration-framework v0.2.5 AppConfig>                                                                    │                               │
+│ │             appname = None                                                                                                                     │                               │
+│ │      dist_info_path = PosixPath('/Users/christophbackhaus/Documents/GitHub/NADOO-Migration-Framework/src/nadoo_migration_framework.dist-info') │                               │
+│ │                 env = {                                                                                                                        │                               │
+│ │                       │   'PYTHONPATH': '/Users/christophbackhaus/Documents/GitHub/NADOO-Migration-Framework/src',                             │                               │
+│ │                       │   'PYTHONUNBUFFERED': '1',                                                                                             │                               │
+│ │                       │   'PYTHONDEVMODE': '1',                                                                                                │                               │
+│ │                       │   'PYTHONUTF8': '1'                                                                                                    │                               │
+│ │                       }                                                                                                                        │                               │
+│ │             options = {}                                                                                                                       │                               │
+│ │         passthrough = []                                                                                                                       │                               │
+│ │             run_app = True                                                                                                                     │                               │
+│ │                self = <briefcase.commands.dev.DevCommand object at 0x1029dda60>                                                                │                               │
+│ │           test_mode = False                                                                                                                    │                               │
+│ │ update_requirements = False                                                                                                                    │                               │
+│ ╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯                               │
+│                                                                                                                                                                                  │
+│ /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages/briefcase/commands/dev.py:169 in run_dev_app                                                                  │
+│                                                                                                                                                                                  │
+│   166 │   │   │   )                                                                                                                                                              │
+│   167 │   │   │                                                                                                                                                                  │
+│   168 │   │   │   # Start streaming logs for the app.                                                                                                                            │
+│ ❱ 169 │   │   │   self._stream_app_logs(                                                                                                                                         │
+│   170 │   │   │   │   app,                                                                                                                                                       │
+│   171 │   │   │   │   popen=app_popen,                                                                                                                                           │
+│   172 │   │   │   │   test_mode=test_mode,                                                                                                                                       │
+│                                                                                                                                                                                  │
+│ ╭───────────────────────────────────────────────────────────────────────────────── locals ──────────────────────────────────────────────────────────────────────────────────╮    │
+│ │         app = <it.nadoo.nadoo-migration-framework v0.2.5 AppConfig>                                                                                                       │    │
+│ │   app_popen = <Popen: returncode: 1 args: ['/opt/homebrew/Caskroom/miniconda/base/bin/pyth...>                                                                            │    │
+│ │     cmdline = ['/opt/homebrew/Caskroom/miniconda/base/bin/python', '-c', 'import runpy, sys;sys.path.pop(0);sys.argv.extend([]);runpy.run_module("nadoo_mi'+56]           │    │
+│ │         env = {'PYTHONPATH': '/Users/christophbackhaus/Documents/GitHub/NADOO-Migration-Framework/src', 'PYTHONUNBUFFERED': '1', 'PYTHONDEVMODE': '1', 'PYTHONUTF8': '1'} │    │
+│ │ main_module = 'nadoo_migration_framework'                                                                                                                                 │    │
+│ │     options = {}                                                                                                                                                          │    │
+│ │ passthrough = []                                                                                                                                                          │    │
+│ │        self = <briefcase.commands.dev.DevCommand object at 0x1029dda60>                                                                                                   │    │
+│ │   test_mode = False                                                                                                                                                       │    │
+│ ╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯    │
+│                                                                                                                                                                                  │
+│ /opt/homebrew/Caskroom/miniconda/base/lib/python3.12/site-packages/briefcase/commands/run.py:202 in _stream_app_logs                                                             │
+│                                                                                                                                                                                  │
+│   199 │   │   │   │   # If we're monitoring an actual app (not just a log stream),                                                                                               │
+│   200 │   │   │   │   # and the app didn't exit cleanly, surface the error to the user.                                                                                          │
+│   201 │   │   │   │   if popen.poll() != 0:                                                                                                                                      │
+│ ❱ 202 │   │   │   │   │   raise BriefcaseCommandError(f"Problem running app {app.app_name}.")                                                                                    │
+│   203 │   │                                                                                                                                                                      │
+│   204 │   │   except KeyboardInterrupt:                                                                                                                                          │
+│   205 │   │   │   pass  # Catch CTRL-C to exit normally                                                                                                                          │
+│                                                                                                                                                                                  │
+│ ╭──────────────────────────────────────────── locals ─────────────────────────────────────────────╮                                                                              │
+│ │          app = <it.nadoo.nadoo-migration-framework v0.2.5 AppConfig>                            │                                                                              │
+│ │ clean_filter = None                                                                             │                                                                              │
+│ │ clean_output = False                                                                            │                                                                              │
+│ │   log_filter = <briefcase.commands.run.LogFilter object at 0x105ba98e0>                         │                                                                              │
+│ │   log_stream = False                                                                            │                                                                              │
+│ │        popen = <Popen: returncode: 1 args: ['/opt/homebrew/Caskroom/miniconda/base/bin/pyth...> │                                                                              │
+│ │         self = <briefcase.commands.dev.DevCommand object at 0x1029dda60>                        │                                                                              │
+│ │    test_mode = False                                                                            │                                                                              │
+│ ╰─────────────────────────────────────────────────────────────────────────────────────────────────╯                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+BriefcaseCommandError: Problem running app nadoo_migration_framework.

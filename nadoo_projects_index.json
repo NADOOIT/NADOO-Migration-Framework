@@ -1,0 +1,201 @@
+{
+  "last_updated": "2024-11-26T10:01:37.249505",
+  "projects": {
+    "ctranslate2-mps": {
+      "location": "SD-CARD-01",
+      "size_mb": 153.30822658538818,
+      "status": "success",
+      "migration_date": "2024-11-26T09:17:08.012320"
+    },
+    "Auto-Ubuntu-VPS-Server-Setup-Script": {
+      "location": "SD-CARD-01",
+      "size_mb": 6.093809127807617,
+      "status": "success",
+      "migration_date": "2024-11-26T09:17:10.361253"
+    },
+    "mp3_wav_to_mp4_converter": {
+      "location": "SD-CARD-01",
+      "size_mb": 38.83521747589111,
+      "status": "success",
+      "migration_date": "2024-11-26T09:17:11.266076"
+    },
+    "django-mfa2": {
+      "location": "SD-CARD-01",
+      "size_mb": 21.366515159606934,
+      "status": "success",
+      "migration_date": "2024-11-26T09:17:32.291413"
+    },
+    "NADOO-Workspace": {
+      "location": "SD-CARD-01",
+      "size_mb": 105.05812072753906,
+      "status": "success",
+      "migration_date": "2024-11-26T09:18:10.552141"
+    },
+    "NADOO-Auto-App": {
+      "location": "SD-CARD-01",
+      "size_mb": 0.8676624298095703,
+      "status": "success",
+      "migration_date": "2024-11-26T09:18:11.662465"
+    },
+    "NADOO-Migration-Framework": {
+      "location": "SD-CARD-01",
+      "size_mb": 3.2889509201049805,
+      "status": "success",
+      "migration_date": "2024-11-26T09:18:17.001558"
+    },
+    "whisperX": {
+      "location": "SD-CARD-01",
+      "size_mb": 0.622776985168457,
+      "status": "success",
+      "migration_date": "2024-11-26T09:18:18.075702"
+    },
+    "NADOO-Window-Manager": {
+      "location": "SD-CARD-01",
+      "size_mb": 7.388662338256836,
+      "status": "success",
+      "migration_date": "2024-11-26T09:18:19.511057"
+    },
+    "RimworldCustomMod": {
+      "location": "SD-CARD-01",
+      "size_mb": 16.349836349487305,
+      "status": "success",
+      "migration_date": "2024-11-26T09:18:38.595017"
+    },
+    "NADOO-SyncVault": {
+      "location": "SD-CARD-01",
+      "size_mb": 1.1879920959472656,
+      "status": "success",
+      "migration_date": "2024-11-26T09:18:40.560565"
+    },
+    "models": {
+      "location": "SD-CARD-01",
+      "size_mb": 365.8509759902954,
+      "status": "success",
+      "migration_date": "2024-11-26T09:21:57.192680"
+    },
+    "NADOO-DokumentenManager": {
+      "location": "SD-CARD-01",
+      "size_mb": 623.3394918441772,
+      "status": "success",
+      "migration_date": "2024-11-26T09:23:56.035637"
+    },
+    "NADOO-Travel": {
+      "location": "SD-CARD-01",
+      "size_mb": 700.5781316757202,
+      "status": "success",
+      "migration_date": "2024-11-26T09:26:40.517883"
+    },
+    "NADOO-Law": {
+      "location": "SD-CARD-01",
+      "size_mb": 2.9216318130493164,
+      "status": "success",
+      "migration_date": "2024-11-26T09:26:41.801165"
+    },
+    "NADOO-Launchpad": {
+      "location": "SD-CARD-01",
+      "size_mb": 4160.403248786926,
+      "status": "success",
+      "migration_date": "2024-11-26T09:51:55.256070"
+    },
+    "BNI-Automate": {
+      "location": "SD-CARD-01",
+      "size_mb": 147.3840560913086,
+      "status": "success",
+      "migration_date": "2024-11-26T09:52:54.136876"
+    },
+    "NADOO-Ideenstarter": {
+      "location": "SD-CARD-01",
+      "size_mb": 1030.9137334823608,
+      "status": "success",
+      "migration_date": "2024-11-26T09:57:24.234849"
+    },
+    "CTranslate2": {
+      "location": "SD-CARD-01",
+      "size_mb": 6.756596565246582,
+      "status": "success",
+      "migration_date": "2024-11-26T09:57:32.483418"
+    },
+    "ctranslate2-metal": {
+      "location": "SD-CARD-01",
+      "size_mb": 245.1371831893921,
+      "status": "success",
+      "migration_date": "2024-11-26T09:59:37.535249"
+    },
+    "NADOO-Backup": {
+      "location": "SD-CARD-01",
+      "size_mb": 10.554370880126953,
+      "status": "success",
+      "migration_date": "2024-11-26T09:59:44.939833"
+    },
+    "stempeluhr": {
+      "location": "SD-CARD-01",
+      "size_mb": 75.7503890991211,
+      "status": "success",
+      "migration_date": "2024-11-26T10:00:36.117508"
+    },
+    "BRAIN": {
+      "location": "SD-CARD-01",
+      "size_mb": 10.078718185424805,
+      "status": "success",
+      "migration_date": "2024-11-26T10:00:47.701818"
+    },
+    "NADOO-Telemarketing": {
+      "location": "SD-CARD-01",
+      "size_mb": 41.91957664489746,
+      "status": "success",
+      "migration_date": "2024-11-26T10:00:50.801239"
+    },
+    "NADOO-Prompt": {
+      "location": "SD-CARD-01",
+      "size_mb": 0.26486873626708984,
+      "status": "success",
+      "migration_date": "2024-11-26T10:00:51.132099"
+    },
+    "NADOO-MeshLink": {
+      "location": "SD-CARD-01",
+      "size_mb": 0.3212251663208008,
+      "status": "success",
+      "migration_date": "2024-11-26T10:00:52.423007"
+    },
+    "NADOO-IT": {
+      "location": "SD-CARD-01",
+      "size_mb": 90.97773361206055,
+      "status": "success",
+      "migration_date": "2024-11-26T10:01:37.249485"
+    }
+  },
+  "sd_cards": {
+    "SD-CARD-01": {
+      "projects": [
+        "ctranslate2-mps",
+        "Auto-Ubuntu-VPS-Server-Setup-Script",
+        "mp3_wav_to_mp4_converter",
+        "django-mfa2",
+        "NADOO-Workspace",
+        "NADOO-Auto-App",
+        "NADOO-Migration-Framework",
+        "whisperX",
+        "NADOO-Window-Manager",
+        "RimworldCustomMod",
+        "NADOO-SyncVault",
+        "models",
+        "NADOO-DokumentenManager",
+        "NADOO-Travel",
+        "NADOO-Law",
+        "NADOO-Launchpad",
+        "BNI-Automate",
+        "NADOO-Ideenstarter",
+        "CTranslate2",
+        "ctranslate2-metal",
+        "NADOO-Backup",
+        "stempeluhr",
+        "BRAIN",
+        "NADOO-Telemarketing",
+        "NADOO-Prompt",
+        "NADOO-MeshLink",
+        "NADOO-IT"
+      ],
+      "total_size_mb": 7867.519701957703
+    }
+  }
+}

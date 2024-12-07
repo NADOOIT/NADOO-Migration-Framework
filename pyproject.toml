@@ -1,31 +1,82 @@
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
 
-[tool.poetry]
+[project]
 name = "nadoo-migration-framework"
 version = "0.2.5"
 description = "A framework for migrating NADOO projects"
-authors = ["NADOO IT Team <info@nadoo.it>"]
+authors = [
+    { name = "NADOO IT Team", email = "christoph.backhaus@nadooit.de" }
+]
 readme = "README.md"
-packages = [{include = "nadoo_migration_framework", from = "src"}]
+license = { text = "MIT" }
+requires-python = ">=3.9"
+dependencies = [
+    "psutil>=5.9.0",
+    "memory-profiler>=0.61.0",
+    "click>=8.1.0",
+    "pathlib>=1.0.1",
+    "toml>=0.10.2",
+    "requests>=2.32.3",
+    "pyttsx3>=2.98",
+    "pyaudio>=0.2.14",
+    "httpx>=0.25.2",
+    "toga>=0.4.0",
+    "toga-cocoa>=0.4.0",
+    "libcst>=1.0.0",
+    "briefcase>=0.3.20"
+]
 
-[tool.poetry.dependencies]
-python = ">=3.9,<4.0"
-click = ">=8.1.0,<9.0.0"
-pathlib = ">=1.0.1,<2.0.0"
-toml = ">=0.10.2,<0.11.0"
-toga = {version = ">=0.4.0", platform = "darwin", extras = ["cocoa"]}
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.23.5",
+    "pytest-cov>=6.0.0",
+    "pytest-watch>=4.2.0",
+    "numpy>=1.26.3",
+    "flake8>=7.0.0",
+    "black>=24.10.0",
+    "pyyaml>=6.0",
+    "pyzmq>=25.0.0"
+]
 
-[tool.poetry.scripts]
+[tool.nadoo]
+version = "0.2.6"
+
+[tool.briefcase]
+project_name = "NADOO Migration Framework"
+bundle = "it.nadoo"
+version = "0.2.5"
+url = "https://nadoo.it"
+author = "NADOO IT Team"
+author_email = "christoph.backhaus@nadooit.de"
+license = "MIT"
+
+[project.scripts]
 nadoo-migrate = "nadoo_migration_framework.cli:cli"
 nadoo-init = "nadoo_migration_framework.cli:init_project"
 nadoo-publish = "nadoo_migration_framework.cli:publish"
 nadoo-update = "nadoo_migration_framework.cli:update"
 
-[tool.nadoo]
-version = "0.2.5"
+[tool.briefcase.app.nadoo_migration_framework]
+formal_name = "NADOO Migration Framework"
+description = "A framework for migrating NADOO projects"
+icon = "src/nadoo_migration_framework/resources/nadoo"
+sources = ["src/nadoo_migration_framework"]
+requires = ["toga>=0.4.0"]
 
-[tool.poetry.group.dev.dependencies]
-pytest = "^7.0.0"
-flake8 = "^7.0.0"
+[tool.briefcase.app.nadoo_migration_framework.macOS]
+requires = ["toga-cocoa>=0.4.0", "std-nslog>=1.0.0"]
+
+[tool.briefcase.app.nadoo_migration_framework.linux]
+requires = ["toga-gtk>=0.4.0"]
+
+[tool.briefcase.app.nadoo_migration_framework.windows]
+requires = ["toga-winforms>=0.4.0"]
+
+[tool.briefcase.app.nadoo_migration_framework.ios]
+requires = ["toga-iOS>=0.4.0"]
+
+[tool.briefcase.app.nadoo_migration_framework.android]
+requires = ["toga-android>=0.4.0"]

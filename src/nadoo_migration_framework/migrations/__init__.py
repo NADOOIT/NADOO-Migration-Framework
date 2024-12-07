@@ -1,6 +1,15 @@
-"""NADOO Framework migrations package."""
+"""Migration management for NADOO project structures."""
 
-from ..base import Migration
-from .engine import MigrationEngine, MigrationPlan
+from .add_briefcase_toga import AddBriefcaseTogaMigration
+from .cleanup_project_structure import CleanupProjectStructureMigration
 
-__all__ = ['Migration', 'MigrationEngine', 'MigrationPlan']
+__all__ = [
+    'BaseMigration',
+    'AddBriefcaseTogaMigration',
+    'CleanupProjectStructureMigration',
+]
+
+MIGRATIONS = [
+    AddBriefcaseTogaMigration(),
+    CleanupProjectStructureMigration(),
+]
