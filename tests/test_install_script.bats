@@ -5,7 +5,7 @@ setup() {
     export TEST_DIR="$(mktemp -d)"
     export ORIGINAL_DIR="$PWD"
     cp "++START_THIS_SCRIPT_FOR_MacOS_INSTALL++.sh" "$TEST_DIR/"
-    cp "pyproject.toml" "$TEST_DIR/"
+    cp "src/nadoo_migration_framework/pyproject.toml" "$TEST_DIR/"
     cd "$TEST_DIR"
 }
 

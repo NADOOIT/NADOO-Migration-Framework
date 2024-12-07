@@ -59,25 +59,30 @@ A powerful framework for migrating NADOO projects, providing tools and utilities
 
 ### Testing
 
-1. Install test dependencies:
-   ```bash
-   brew install bats-core  # For macOS
-   ```
+The project includes automated tests for both Python code and shell scripts:
 
-2. Run the test suite:
+1. Shell Script Tests:
    ```bash
-   # Run all tests
+   # Run all shell script tests
    bats tests/*.bats
 
    # Run specific test file
    bats tests/test_install_script.bats
    ```
 
-The test suite includes:
-- Installation script tests
-- Configuration validation
-- Error handling verification
-- Python version management
+   **Note:** During testing, the `pyproject.toml` file is copied to a temporary directory to ensure tests always use the latest version. This ensures that any updates to dependencies are reflected in the tests without affecting the original files.
+
+2. Python Tests:
+   ```bash
+   # Run all tests
+   pytest
+
+   # Run tests with coverage
+   pytest --cov=src/nadoo_migration_framework
+
+   # Run tests in watch mode (great for TDD)
+   pytest-watch  # or ptw for short
+   ```
 
 ## Project Structure
 
