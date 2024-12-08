@@ -4,6 +4,7 @@
 CONFIG_FILE=".nadoo_config"
 DEFAULT_PYTHON_VERSION="3.12"
 DRY_RUN=false
+RUN_TESTS=false
 
 # Check if running on macOS
 if [[ "$OSTYPE" != "darwin"* ]]; then
@@ -15,22 +16,6 @@ fi
 if ! command -v brew &> /dev/null; then
     echo "Installing Homebrew..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-fi
-
-# Install or update bats-core for shell script testing
-if ! command -v bats &> /dev/null; then
-    echo " Installing bats-core for shell script testing..."
-    brew install bats-core
-else
-    echo " Updating bats-core..."
-    brew upgrade bats-core
-fi
-
-# Read default Python version from config if it exists
-if [ -f "$CONFIG_FILE" ]; then
-    PYTHON_VERSION=$(grep "^PYTHON_VERSION=" "$CONFIG_FILE" | cut -d'=' -f2)
-else
-    PYTHON_VERSION="$DEFAULT_PYTHON_VERSION"
 fi
 
 # Parse command line arguments
@@ -60,20 +45,63 @@ while [[ $# -gt 0 ]]; do
                 exit 1
             fi
             ;;
+        -run-tests)
+            RUN_TESTS=true
+            shift
+            ;;
         --dry-run)
             DRY_RUN=true
             shift
             ;;
         *)
             echo "Unknown option: $1"
-            echo "Usage: $0 [-reinstall] [-python-version X.Y] [-set-default-python X.Y] [--dry-run]"
+            echo "Usage: $0 [-reinstall] [-python-version X.Y] [-set-default-python X.Y] [-run-tests] [--dry-run]"
             exit 1
             ;;
     esac
 done
 
-# If dry run, exit here for testing
+# Install or update bats-core for shell script testing if running tests
+if [ "$RUN_TESTS" = "true" ]; then
+    if ! command -v bats &> /dev/null; then
+        echo " Installing bats-core for shell script testing..."
+        brew install bats-core
+    else
+        echo " Updating bats-core..."
+        brew upgrade bats-core
+    fi
+fi
+
+# If dry run, simulate actions and exit
 if [ "$DRY_RUN" = "true" ]; then
+    echo "[Dry Run] Checking if Homebrew is installed..."
+    if ! command -v brew &> /dev/null; then
+        echo "[Dry Run] Homebrew would be installed."
+    else
+        echo "[Dry Run] Homebrew is already installed."
+    fi
+
+    echo "[Dry Run] Checking if bats-core is installed..."
+    if ! command -v bats &> /dev/null; then
+        echo "[Dry Run] bats-core would be installed."
+    else
+        echo "[Dry Run] bats-core is already installed."
+    fi
+
+    echo "[Dry Run] Would check for existing virtual environment..."
+    if [ ! -d ".venv" ]; then
+        echo "[Dry Run] Virtual environment would be created."
+    else
+        echo "[Dry Run] Virtual environment already exists."
+    fi
+
+    echo "[Dry Run] Would check for pyproject.toml in nadoo_migration_framework directory..."
+    if [ -f "$(dirname "$0")/nadoo_migration_framework/pyproject.toml" ]; then
+        echo "[Dry Run] pyproject.toml exists."
+    else
+        echo "[Dry Run] pyproject.toml is missing."
+    fi
+
     exit 0
 fi
 
@@ -99,35 +127,48 @@ else
         echo " Installing uv..."
         curl -LsSf https://astral.sh/uv/install.sh | sh
     else
-        echo " Updating uv to latest version..."
+        echo " uv is already installed, updating to latest version..."
         curl -LsSf https://astral.sh/uv/install.sh | sh
     fi
 
-    # Ensure uv is in PATH after installation
-    if [ -f "$HOME/.profile" ]; then
-        source "$HOME/.profile"
-    fi
-    
     # Create virtual environment with specified Python version
     echo " Creating virtual environment with Python $PYTHON_VERSION..."
-    
-    # Install Python version using uv
     uv python install "$PYTHON_VERSION"
-    
-    # Create the virtual environment
     uv venv .venv
-    
     echo " Virtual environment created with Python $PYTHON_VERSION"
 fi
 
-# Install project dependencies
-echo " Installing project dependencies..."
+# Activate the virtual environment
 source .venv/bin/activate
 
-# Install all dependencies using uv and pyproject.toml
-echo " Installing dependencies..."
+# Change to the directory containing the original pyproject.toml
+cd "$(dirname "$0")/nadoo_migration_framework"
+
+# Install project dependencies
+echo "Installing project dependencies..."
 uv pip install -e ".[dev]"  # This installs both main and dev dependencies from pyproject.toml
 
-echo " Installation complete! Your development environment is ready."
-echo " You can now run tests with: pytest"
-echo " To activate the environment in a new terminal, run: source .venv/bin/activate"
+# Change back to the original directory for running tests
+cd -
+
+# Run bats tests if the flag is set
+if [ "$RUN_TESTS" = "true" ]; then
+    if [ -f "tests/test_install_script.bats" ]; then
+        echo "Running bats tests..."
+        bats tests/test_install_script.bats
+        exit 0
+    else
+        echo "Bats test file not found."
+        exit 1
+    fi
+fi
+
+# Ensure we are in the nadoo_migration_framework directory for briefcase
+cd "$(dirname "$0")/nadoo_migration_framework"
+
+# Debug: Print current directory and list contents
+pwd
+ls -la
+
+# Briefcase dev ausführen
+briefcase dev

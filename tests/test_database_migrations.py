@@ -7,7 +7,7 @@ from pathlib import Path
 from nadoo_migration_framework.migrations.database_migrations import (
     AddColumnMigration,
     CreateIndexMigration,
-    ModifyForeignKeyMigration
+    ModifyForeignKeyMigration,
 )
 
 
@@ -20,29 +20,32 @@ def test_db(tmp_path):
     cursor = conn.cursor()
 
     # Create test tables
-    cursor.execute("""
+    cursor.execute(
+        """
         CREATE TABLE users (
             id INTEGER PRIMARY KEY,
             username TEXT NOT NULL
         )
-    """)
-    
-    cursor.execute("""
+    """
+    )
+
+    cursor.execute(
+        """
         CREATE TABLE posts (
             id INTEGER PRIMARY KEY,
             title TEXT NOT NULL,
             user_id INTEGER
         )
-    """)
+    """
+    )
 
     # Add some test data
     cursor.execute("INSERT INTO users (username) VALUES (?)", ("testuser",))
-    cursor.execute("INSERT INTO posts (title, user_id) VALUES (?, ?)", 
-                  ("Test Post", 1))
-    
+    cursor.execute("INSERT INTO posts (title, user_id) VALUES (?, ?)", ("Test Post", 1))
+
     conn.commit()
     conn.close()
-    
+
     return db_path
 
 
@@ -52,7 +55,7 @@ def test_add_column_migration(test_db):
         table_name="users",
         column_name="email",
         column_type="TEXT",
-        default_value="'user@example.com'"
+        default_value="'user@example.com'",
     )
     migration._connect_db(str(test_db))
 
@@ -86,10 +89,7 @@ def test_add_column_migration(test_db):
 def test_create_index_migration(test_db):
     """Test creating an index on a table."""
     migration = CreateIndexMigration(
-        table_name="users",
-        index_name="idx_username",
-        columns=["username"],
-        unique=True
+        table_name="users", index_name="idx_username", columns=["username"], unique=True
     )
     migration._connect_db(str(test_db))
 
@@ -101,16 +101,18 @@ def test_create_index_migration(test_db):
 
     # Verify index was created
     cursor = migration._cursor
-    cursor.execute("SELECT name FROM sqlite_master WHERE type='index' AND name=?",
-                  ("idx_username",))
+    cursor.execute(
+        "SELECT name FROM sqlite_master WHERE type='index' AND name=?", ("idx_username",)
+    )
     assert cursor.fetchone() is not None
 
     # Test rollback
     migration._down()
 
     # Verify index was removed
-    cursor.execute("SELECT name FROM sqlite_master WHERE type='index' AND name=?",
-                  ("idx_username",))
+    cursor.execute(
+        "SELECT name FROM sqlite_master WHERE type='index' AND name=?", ("idx_username",)
+    )
     assert cursor.fetchone() is None
 
     migration._close_db()
@@ -123,7 +125,7 @@ def test_modify_foreign_key_migration(test_db):
         foreign_key={"user_id": "INTEGER"},
         referenced_table="users",
         referenced_column="id",
-        on_delete="CASCADE"
+        on_delete="CASCADE",
     )
     migration._connect_db(str(test_db))
 
@@ -137,9 +139,10 @@ def test_modify_foreign_key_migration(test_db):
     cursor = migration._cursor
     cursor.execute("PRAGMA foreign_key_list(posts)")
     foreign_keys = cursor.fetchall()
-    assert any(fk[2] == "users" and fk[3] == "user_id" and 
-              fk[4] == "id" and fk[6] == "CASCADE" 
-              for fk in foreign_keys)
+    assert any(
+        fk[2] == "users" and fk[3] == "user_id" and fk[4] == "id" and fk[6] == "CASCADE"
+        for fk in foreign_keys
+    )
 
     # Test data integrity
     cursor.execute("SELECT title FROM posts WHERE user_id=1")
@@ -158,12 +161,8 @@ def test_modify_foreign_key_migration(test_db):
 
 def test_database_backup_restore(test_db):
     """Test database backup and restore functionality."""
-    migration = AddColumnMigration(
-        table_name="users",
-        column_name="email",
-        column_type="TEXT"
-    )
-    
+    migration = AddColumnMigration(table_name="users", column_name="email", column_type="TEXT")
+
     # Create backup
     migration._backup_database(str(test_db))
     assert Path(str(test_db) + '.bak').exists()

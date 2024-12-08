@@ -4,7 +4,9 @@ import pytest
 from pathlib import Path
 import toml
 
-from nadoo_migration_framework.migrations.briefcase_migrations import UpdateBriefcaseLicenseMigration
+from nadoo_migration_framework.migrations.briefcase_migrations import (
+    UpdateBriefcaseLicenseMigration,
+)
 
 
 def test_update_briefcase_license(tmp_path):
@@ -15,13 +17,7 @@ def test_update_briefcase_license(tmp_path):
 
     # Create pyproject.toml with old license format
     pyproject_file = project_dir / "pyproject.toml"
-    config = {
-        "project": {
-            "name": "test-project",
-            "version": "0.1.0",
-            "license": "Proprietary"
-        }
-    }
+    config = {"project": {"name": "test-project", "version": "0.1.0", "license": "Proprietary"}}
     with open(pyproject_file, "w") as f:
         toml.dump(config, f)
 
@@ -66,13 +62,7 @@ def test_update_briefcase_license_no_project(tmp_path):
 
     # Create pyproject.toml without project table
     pyproject_file = project_dir / "pyproject.toml"
-    config = {
-        "tool": {
-            "briefcase": {
-                "version": "0.3.20"
-            }
-        }
-    }
+    config = {"tool": {"briefcase": {"version": "0.3.20"}}}
     with open(pyproject_file, "w") as f:
         toml.dump(config, f)
 
@@ -107,13 +97,7 @@ def test_update_briefcase_license_already_pep621(tmp_path):
     # Create pyproject.toml with PEP 621 license format
     pyproject_file = project_dir / "pyproject.toml"
     config = {
-        "project": {
-            "name": "test-project",
-            "version": "0.1.0",
-            "license": {
-                "file": "LICENSE"
-            }
-        }
+        "project": {"name": "test-project", "version": "0.1.0", "license": {"file": "LICENSE"}}
     }
     with open(pyproject_file, "w") as f:
         toml.dump(config, f)

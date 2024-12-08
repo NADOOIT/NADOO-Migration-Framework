@@ -27,6 +27,44 @@ A powerful framework for migrating NADOO projects, providing tools and utilities
    - `-python-version X.Y`: Use specific Python version (default: 3.12)
    - `-set-default-python X.Y`: Set default Python version for future installs
 
+## MacOS Installation Script Usage
+
+The `++START_THIS_SCRIPT_FOR_MacOS_INSTALL++.sh` script is used to set up and run the NADOO Migration Framework application on macOS. Below are the available flags and example usage:
+
+### Flags
+
+- `-set-default-python X.Y`: Sets the default Python version to X.Y for the virtual environment.
+- `-reinstall`: Removes the existing virtual environment and creates a new one.
+- `-python-version X.Y`: Specifies a custom Python version for the virtual environment.
+- `-run-tests`: Runs the Bats tests after setting up the environment.
+- `--dry-run`: Executes the script in dry-run mode, showing what would be done without making any changes.
+
+### Example Commands
+
+#### Run the Application
+To set the default Python version and run the application:
+```bash
+./++START_THIS_SCRIPT_FOR_MacOS_INSTALL++.sh -set-default-python 3.12
+```
+
+#### Run Tests
+To set the default Python version, set up the environment, and run tests:
+```bash
+./++START_THIS_SCRIPT_FOR_MacOS_INSTALL++.sh -set-default-python 3.12 -run-tests
+```
+
+#### Reinstall the Environment
+To reinstall the environment with a specific Python version:
+```bash
+./++START_THIS_SCRIPT_FOR_MacOS_INSTALL++.sh -reinstall -python-version 3.12
+```
+
+#### Dry Run
+To see what the script would do without making changes:
+```bash
+./++START_THIS_SCRIPT_FOR_MacOS_INSTALL++.sh --dry-run
+```
+
 ### Development
 
 1. Activate the virtual environment (if not already active):
