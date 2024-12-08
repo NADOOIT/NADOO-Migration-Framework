@@ -1,0 +1,321 @@
+Date/Time:       2024-12-08 14:55:05 
+Command line:    /Users/christophbackhaus/Documents/GitHub/NADOO-Migration-Framework/.venv/bin/briefcase dev
+
+OS Release:      Darwin 23.5.0
+OS Version:      Darwin Kernel Version 23.5.0: Wed May  1 20:14:38 PDT 2024; root:xnu-10063.121.3~5/RELEASE_ARM64_T6020
+Architecture:    arm64
+Platform:        macOS-14.5-arm64-arm-64bit
+
+Python exe:      /Users/christophbackhaus/Documents/GitHub/NADOO-Migration-Framework/.venv/bin/python3
+Python version:  3.12.7 | packaged by Anaconda, Inc. | (main, Oct  4 2024, 08:22:19) [Clang 14.0.6 ]
+Virtual env:     True
+Conda env:       False
+
+Briefcase:       0.3.20
+Target platform: macOS
+Target format:   None
+
+Environment Variables:
+	COLORTERM=truecolor
+	COMMAND_MODE=unix2003
+	CONDA_DEFAULT_ENV=base
+	CONDA_EXE=/opt/homebrew/Caskroom/miniconda/base/bin/conda
+	CONDA_PREFIX=/opt/homebrew/Caskroom/miniconda/base
+	CONDA_PROMPT_MODIFIER=(base) 
+	CONDA_PYTHON_EXE=/opt/homebrew/Caskroom/miniconda/base/bin/python
+	CONDA_SHLVL=1
+	CPLUS_INCLUDE_PATH=/Users/christophbackhaus/.wasmedge/include
+	CPPFLAGS=-I/opt/homebrew/opt/libomp/include
+	C_INCLUDE_PATH=/Users/christophbackhaus/.wasmedge/include
+	GIT_ASKPASS=********************
+	HOME=/Users/christophbackhaus
+	HOMEBREW_CELLAR=/opt/homebrew/Cellar
+	HOMEBREW_PREFIX=/opt/homebrew
+	HOMEBREW_REPOSITORY=/opt/homebrew
+	INFOPATH=/opt/homebrew/share/info:/opt/homebrew/share/info:
+	LANG=en_US.UTF-8
+	LDFLAGS=-L/opt/homebrew/opt/libomp/lib
+	LESS=-R
+	LIBRARY_PATH=/Users/christophbackhaus/.wasmedge/lib
+	LOGNAME=christophbackhaus
+	LSCOLORS=Gxfxcxdxbxegedabagacad
+	LS_COLORS=di=1;36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43
+	MallocNanoZone=0
+	OLDPWD=/Users/christophbackhaus/Documents/GitHub/NADOO-Migration-Framework
+	ORIGINAL_XDG_CURRENT_DESKTOP=undefined
+	PAGER=less
+	PATH=/Users/christophbackhaus/Documents/GitHub/NADOO-Migration-Framework/.venv/bin:/Users/christophbackhaus/.windsurf/extensions/ms-python.python-2024.20.0-darwin-arm64/python_files/deactivate/zsh:/Users/christophbackhaus/Documents/GitHub/NADOO-Migration-Framework/CTranslate2/.venv-error-6-metal-support/bin:/Users/christophbackhaus/.local/bin:/Users/christophbackhaus/.codeium/windsurf/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin:/Users/christophbackhaus/.windsurf/extensions/ms-python.python-2024.20.0-darwin-arm64/python_files/deactivate/zsh:/Users/christophbackhaus/Documents/GitHub/NADOO-Migration-Framework/CTranslate2/.venv-error-6-metal-support/bin:/Library/Frameworks/Python.framework/Versions/3.12/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/opt/podman/bin:/Users/christophbackhaus/.windsurf/extensions/ms-python.python-2024.20.0-darwin-arm64/python_files/deactivate/zsh:/Users/christophbackhaus/Documents/GitHub/NADOO-Migration-Framework/CTranslate2/.venv-error-6-metal-support/bin:/opt/homebrew/Caskroom/miniconda/base/bin:/opt/homebrew/Caskroom/miniconda/base/condabin:/Users/christophbackhaus/.local/bin:/Users/christophbackhaus/.codeium/windsurf/bin:/Library/Frameworks/Python.framework/Versions/3.12/bin:/Users/christophbackhaus/.cargo/bin:/Users/christophbackhaus/.wasmedge/bin
+	PS1=(.venv) 
+	PWD=/Users/christophbackhaus/Documents/GitHub/NADOO-Migration-Framework/nadoo_migration_framework
+	SHELL=/bin/zsh
+	SHLVL=2
+	SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.Hknajp7kN3/Listeners
+	TERM=xterm-256color
+	TERM_PROGRAM=vscode
+	TERM_PROGRAM_VERSION=1.94.0
+	TMPDIR=/var/folders/47/kfsw22311g55y6_jmdglpb_h0000gn/T/
+	USER=christophbackhaus
+	USER_ZDOTDIR=/Users/christophbackhaus
+	VIRTUAL_ENV=/Users/christophbackhaus/Documents/GitHub/NADOO-Migration-Framework/.venv
+	VIRTUAL_ENV_PROMPT=(.venv) 
+	VSCODE_GIT_ASKPASS_EXTRA_ARGS=********************
+	VSCODE_GIT_ASKPASS_MAIN=********************
+	VSCODE_GIT_ASKPASS_NODE=********************
+	VSCODE_GIT_IPC_HANDLE=/var/folders/47/kfsw22311g55y6_jmdglpb_h0000gn/T/vscode-git-6533305457.sock
+	VSCODE_INJECTION=1
+	WASMEDGE_LIB_DIR=/Users/christophbackhaus/.wasmedge/lib
+	XPC_FLAGS=0x0
+	XPC_SERVICE_NAME=0
+	ZDOTDIR=/Users/christophbackhaus
+	ZSH=/Users/christophbackhaus/.oh-my-zsh
+	_=/Users/christophbackhaus/Documents/GitHub/NADOO-Migration-Framework/.venv/bin/briefcase
+	_CE_CONDA=
+	_CE_M=
+	__CFBundleIdentifier=com.exafunction.windsurf
+	__CF_USER_TEXT_ENCODING=0x1F5:0x0:0x3
+
+pyproject.toml:
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nadoo-migration-framework"
+version = "0.2.5"
+description = "A framework for migrating NADOO projects"
+authors = [
+    { name = "NADOO IT Team", email = "christoph.backhaus@nadooit.de" }
+]
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.9"
+dependencies = [
+    "psutil>=5.9.0",
+    "memory-profiler>=0.61.0",
+    "click>=8.1.0",
+    "pathlib>=1.0.1",
+    "toml>=0.10.2",
+    "requests>=2.32.3",
+    "pyttsx3>=2.98",
+    "pyaudio>=0.2.14",
+    "httpx>=0.25.2",
+    "toga>=0.4.0",
+    "toga-cocoa>=0.4.0",
+    "libcst>=1.0.0",
+    "briefcase>=0.3.20",
+    "briefcase>=0.3.5",
+    "toga>=0.3.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.23.5",
+    "pytest-cov>=6.0.0",
+    "pytest-watch>=4.2.0",
+    "numpy>=1.26.3",
+    "flake8>=7.0.0",
+    "black>=24.10.0",
+    "pyyaml>=6.0",
+    "pyzmq>=25.0.0"
+]
+
+[tool.nadoo]
+version = "0.2.6"
+
+[tool.briefcase]
+project_name = "NADOO Migration Framework"
+bundle = "it.nadoo"
+version = "0.2.5"
+url = "https://nadoo.it"
+author = "NADOO IT Team"
+author_email = "christoph.backhaus@nadooit.de"
+license = "MIT"
+
+[project.scripts]
+nadoo-migrate = "nadoo_migration_framework.cli:cli"
+nadoo-init = "nadoo_migration_framework.cli:init_project"
+nadoo-publish = "nadoo_migration_framework.cli:publish"
+nadoo-update = "nadoo_migration_framework.cli:update"
+
+[tool.briefcase.app.nadoo_migration_framework]
+formal_name = "NADOO Migration Framework"
+description = "A framework for migrating NADOO projects"
+icon = "src/nadoo_migration_framework/resources/nadoo"
+sources = ["src/nadoo_migration_framework"]
+requires = ["toga>=0.4.0"]
+
+[tool.briefcase.app.nadoo_migration_framework.macOS]
+requires = ["toga-cocoa>=0.4.0", "std-nslog>=1.0.0"]
+
+[tool.briefcase.app.nadoo_migration_framework.linux]
+requires = ["toga-gtk>=0.4.0"]
+
+[tool.briefcase.app.nadoo_migration_framework.windows]
+requires = ["toga-winforms>=0.4.0"]
+
+[tool.briefcase.app.nadoo_migration_framework.ios]
+requires = ["toga-iOS>=0.4.0"]
+
+[tool.briefcase.app.nadoo_migration_framework.android]
+requires = ["toga-android>=0.4.0"]
+
+Briefcase Log:
+[14:55:04]                                                                                                                                                             config.py:548
+           *************************************************************************                                                                                   config.py:548
+           ** WARNING: License Definition for the Project is Deprecated           **                                                                                   config.py:548
+           *************************************************************************                                                                                   config.py:548
+                                                                                                                                                                       config.py:548
+               Briefcase now uses PEP 621 format for license definitions.                                                                                              config.py:548
+                                                                                                                                                                       config.py:548
+               Previously, the name of the license was assigned to the 'license'                                                                                       config.py:548
+               field in pyproject.toml. For PEP 621, the name of the license is                                                                                        config.py:548
+               assigned to 'license.text' or the name of the file containing the                                                                                       config.py:548
+               license is assigned to 'license.file'.                                                                                                                  config.py:548
+                                                                                                                                                                       config.py:548
+               The current configuration for the Project has a 'license' field                                                                                         config.py:548
+               that is specified as a string:                                                                                                                          config.py:548
+                                                                                                                                                                       config.py:548
+                   license = "MIT"                                                                                                                                     config.py:548
+                                                                                                                                                                       config.py:548
+               To use the PEP 621 format (and to remove this warning), specify that                                                                                    config.py:548
+               the LICENSE file contains the license for the Project:                                                                                                  config.py:548
+                                                                                                                                                                       config.py:548
+                   license.file = "LICENSE"                                                                                                                            config.py:548
+                                                                                                                                                                       config.py:548
+           *************************************************************************                                                                                   config.py:548
+                                                                                                                                                                          dev.py:246
+           [nadoo_migration_framework] Starting in dev mode...                                                                                                            dev.py:246
+                                                                                                                                                                   subprocess.py:818
+           >>> Running Command:                                                                                                                                    subprocess.py:818
+           >>>     /Users/christophbackhaus/Documents/GitHub/NADOO-Migration-Framework/.venv/bin/python3 -c 'import runpy,                                         subprocess.py:818
+           sys;sys.path.pop(0);sys.argv.extend([]);runpy.run_module("nadoo_migration_framework", run_name="__main__", alter_sys=True)'                                              
+           >>> Working Directory:                                                                                                                                  subprocess.py:818
+           >>>     /Users/christophbackhaus                                                                                                                        subprocess.py:818
+           >>> Environment Overrides:                                                                                                                              subprocess.py:818
+           >>>     PYTHONPATH=/Users/christophbackhaus/Documents/GitHub/NADOO-Migration-Framework/nadoo_migration_framework/src                                    subprocess.py:818
+           >>>     PYTHONUNBUFFERED=1                                                                                                                              subprocess.py:818
+           >>>     PYTHONDEVMODE=1                                                                                                                                 subprocess.py:818
+           >>>     PYTHONUTF8=1                                                                                                                                    subprocess.py:818
+           ===========================================================================                                                                                    run.py:171
+[14:55:05] Traceback (most recent call last):                                                                                                                      subprocess.py:195
+             File "<string>", line 1, in <module>                                                                                                                  subprocess.py:195
+             File "<frozen runpy>", line 226, in run_module                                                                                                        subprocess.py:195
+             File "<frozen runpy>", line 98, in _run_module_code                                                                                                   subprocess.py:195
+             File "<frozen runpy>", line 88, in _run_code                                                                                                          subprocess.py:195
+             File "/Users/christophbackhaus/Documents/GitHub/NADOO-Migration-Framework/nadoo_migration_framework/src/nadoo_migration_framework/__main__.py", line  subprocess.py:195
+           5, in <module>                                                                                                                                                           
+               from .cli import migrate                                                                                                                            subprocess.py:195
+             File "/Users/christophbackhaus/Documents/GitHub/NADOO-Migration-Framework/nadoo_migration_framework/src/nadoo_migration_framework/cli/__init__.py",   subprocess.py:195
+           line 17, in <module>                                                                                                                                                     
+               from ..gui.app import run_migration_gui                                                                                                             subprocess.py:195
+           ModuleNotFoundError: No module named 'nadoo_migration_framework.gui.app'                                                                                subprocess.py:195
+                                                                                                                                                                      __main__.py:44
+           Problem running app nadoo_migration_framework.                                                                                                             __main__.py:45
+           Saving log... started                                                                                                                                      console.py:381
+
+Main thread traceback:
+╭─────────────────────────────────────────────────────────────────────── Traceback (most recent call last) ────────────────────────────────────────────────────────────────────────╮
+│ /Users/christophbackhaus/Documents/GitHub/NADOO-Migration-Framework/.venv/lib/python3.12/site-packages/briefcase/__main__.py:29 in main                                          │
+│                                                                                                                                                                                  │
+│   26 │   │   │   Path.cwd() / "pyproject.toml",                                                                                                                                  │
+│   27 │   │   │   overrides=overrides,                                                                                                                                            │
+│   28 │   │   )                                                                                                                                                                   │
+│ ❱ 29 │   │   command(**options)                                                                                                                                                  │
+│   30 │   except HelpText as e:                                                                                                                                                   │
+│   31 │   │   logger.info()                                                                                                                                                       │
+│   32 │   │   logger.info(str(e))                                                                                                                                                 │
+│                                                                                                                                                                                  │
+│ ╭──────────────────────────────────────────────────────── locals ─────────────────────────────────────────────────────────╮                                                      │
+│ │       command = <briefcase.commands.dev.DevCommand object at 0x111922660>                                               │                                                      │
+│ │       console = <briefcase.console.Console object at 0x110243830>                                                       │                                                      │
+│ │             e = BriefcaseCommandError('Problem running app nadoo_migration_framework.')                                 │                                                      │
+│ │ extra_cmdline = []                                                                                                      │                                                      │
+│ │        logger = <briefcase.console.Log object at 0x10553d100>                                                           │                                                      │
+│ │       options = {'appname': None, 'update_requirements': False, 'run_app': True, 'test_mode': False, 'passthrough': []} │                                                      │
+│ │     overrides = {}                                                                                                      │                                                      │
+│ │       printer = <briefcase.console.Printer object at 0x11021ffb0>                                                       │                                                      │
+│ │        result = 200                                                                                                     │                                                      │
+│ ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯                                                      │
+│                                                                                                                                                                                  │
+│ /Users/christophbackhaus/Documents/GitHub/NADOO-Migration-Framework/.venv/lib/python3.12/site-packages/briefcase/commands/dev.py:248 in __call__                                 │
+│                                                                                                                                                                                  │
+│   245 │   │   │   else:                                                                                                                                                          │
+│   246 │   │   │   │   self.logger.info("Starting in dev mode...", prefix=app.app_name)                                                                                           │
+│   247 │   │   │   env = self.get_environment(app, test_mode=test_mode)                                                                                                           │
+│ ❱ 248 │   │   │   return self.run_dev_app(                                                                                                                                       │
+│   249 │   │   │   │   app,                                                                                                                                                       │
+│   250 │   │   │   │   env,                                                                                                                                                       │
+│   251 │   │   │   │   test_mode=test_mode,                                                                                                                                       │
+│                                                                                                                                                                                  │
+│ ╭─────────────────────────────────────────────────────────────────────────────────── locals ───────────────────────────────────────────────────────────────────────────────────╮ │
+│ │                 app = <it.nadoo.nadoo-migration-framework v0.2.5 AppConfig>                                                                                                  │ │
+│ │             appname = None                                                                                                                                                   │ │
+│ │      dist_info_path = PosixPath('/Users/christophbackhaus/Documents/GitHub/NADOO-Migration-Framework/nadoo_migration_framework/src/nadoo_migration_framework.dist-info')     │ │
+│ │                 env = {                                                                                                                                                      │ │
+│ │                       │   'PYTHONPATH': '/Users/christophbackhaus/Documents/GitHub/NADOO-Migration-Framework/nadoo_migrat'+17,                                               │ │
+│ │                       │   'PYTHONUNBUFFERED': '1',                                                                                                                           │ │
+│ │                       │   'PYTHONDEVMODE': '1',                                                                                                                              │ │
+│ │                       │   'PYTHONUTF8': '1'                                                                                                                                  │ │
+│ │                       }                                                                                                                                                      │ │
+│ │             options = {}                                                                                                                                                     │ │
+│ │         passthrough = []                                                                                                                                                     │ │
+│ │             run_app = True                                                                                                                                                   │ │
+│ │                self = <briefcase.commands.dev.DevCommand object at 0x111922660>                                                                                              │ │
+│ │           test_mode = False                                                                                                                                                  │ │
+│ │ update_requirements = False                                                                                                                                                  │ │
+│ ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯ │
+│                                                                                                                                                                                  │
+│ /Users/christophbackhaus/Documents/GitHub/NADOO-Migration-Framework/.venv/lib/python3.12/site-packages/briefcase/commands/dev.py:169 in run_dev_app                              │
+│                                                                                                                                                                                  │
+│   166 │   │   │   )                                                                                                                                                              │
+│   167 │   │   │                                                                                                                                                                  │
+│   168 │   │   │   # Start streaming logs for the app.                                                                                                                            │
+│ ❱ 169 │   │   │   self._stream_app_logs(                                                                                                                                         │
+│   170 │   │   │   │   app,                                                                                                                                                       │
+│   171 │   │   │   │   popen=app_popen,                                                                                                                                           │
+│   172 │   │   │   │   test_mode=test_mode,                                                                                                                                       │
+│                                                                                                                                                                                  │
+│ ╭──────────────────────────────────────────────────────── locals ────────────────────────────────────────────────────────╮                                                       │
+│ │         app = <it.nadoo.nadoo-migration-framework v0.2.5 AppConfig>                                                    │                                                       │
+│ │   app_popen = <Popen: returncode: 1 args: ['/Users/christophbackhaus/Documents/GitHub/NADO...>                         │                                                       │
+│ │     cmdline = [                                                                                                        │                                                       │
+│ │               │   '/Users/christophbackhaus/Documents/GitHub/NADOO-Migration-Framework/.venv/bin/py'+5,                │                                                       │
+│ │               │   '-c',                                                                                                │                                                       │
+│ │               │   'import runpy, sys;sys.path.pop(0);sys.argv.extend([]);runpy.run_module("nadoo_mi'+56                │                                                       │
+│ │               ]                                                                                                        │                                                       │
+│ │         env = {                                                                                                        │                                                       │
+│ │               │   'PYTHONPATH': '/Users/christophbackhaus/Documents/GitHub/NADOO-Migration-Framework/nadoo_migrat'+17, │                                                       │
+│ │               │   'PYTHONUNBUFFERED': '1',                                                                             │                                                       │
+│ │               │   'PYTHONDEVMODE': '1',                                                                                │                                                       │
+│ │               │   'PYTHONUTF8': '1'                                                                                    │                                                       │
+│ │               }                                                                                                        │                                                       │
+│ │ main_module = 'nadoo_migration_framework'                                                                              │                                                       │
+│ │     options = {}                                                                                                       │                                                       │
+│ │ passthrough = []                                                                                                       │                                                       │
+│ │        self = <briefcase.commands.dev.DevCommand object at 0x111922660>                                                │                                                       │
+│ │   test_mode = False                                                                                                    │                                                       │
+│ ╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯                                                       │
+│                                                                                                                                                                                  │
+│ /Users/christophbackhaus/Documents/GitHub/NADOO-Migration-Framework/.venv/lib/python3.12/site-packages/briefcase/commands/run.py:200 in _stream_app_logs                         │
+│                                                                                                                                                                                  │
+│   197 │   │   │   │   # If we're monitoring an actual app (not just a log stream),                                                                                               │
+│   198 │   │   │   │   # and the app didn't exit cleanly, surface the error to the user.                                                                                          │
+│   199 │   │   │   │   if popen.poll() != 0:                                                                                                                                      │
+│ ❱ 200 │   │   │   │   │   raise BriefcaseCommandError(f"Problem running app {app.app_name}.")                                                                                    │
+│   201 │   │                                                                                                                                                                      │
+│   202 │   │   except KeyboardInterrupt:                                                                                                                                          │
+│   203 │   │   │   pass  # Catch CTRL-C to exit normally                                                                                                                          │
+│                                                                                                                                                                                  │
+│ ╭──────────────────────────────────────────── locals ─────────────────────────────────────────────╮                                                                              │
+│ │          app = <it.nadoo.nadoo-migration-framework v0.2.5 AppConfig>                            │                                                                              │
+│ │ clean_filter = None                                                                             │                                                                              │
+│ │ clean_output = False                                                                            │                                                                              │
+│ │   log_filter = <briefcase.commands.run.LogFilter object at 0x112b47ad0>                         │                                                                              │
+│ │   log_stream = False                                                                            │                                                                              │
+│ │        popen = <Popen: returncode: 1 args: ['/Users/christophbackhaus/Documents/GitHub/NADO...> │                                                                              │
+│ │         self = <briefcase.commands.dev.DevCommand object at 0x111922660>                        │                                                                              │
+│ │    test_mode = False                                                                            │                                                                              │
+│ ╰─────────────────────────────────────────────────────────────────────────────────────────────────╯                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+BriefcaseCommandError: Problem running app nadoo_migration_framework.

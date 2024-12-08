@@ -10,7 +10,7 @@ from typing import Dict, List, Optional, Type, Union
 from .base import Migration
 from .version_compatibility import VersionCompatibilityMatrix
 from .version_management import VersionManager, Version
-from .dependency_management import DependencyManager
+from .classes.DependencyManager import DependencyManager
 
 logger = logging.getLogger(__name__)
 

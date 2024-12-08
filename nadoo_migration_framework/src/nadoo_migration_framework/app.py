@@ -4,9 +4,8 @@ import toga
 import logging
 import sys
 from pathlib import Path
-from ..migrations import MigrationEngine
-from .migration_window import MigrationWindow
-from .voice_window import VoiceCommandWindow
+from .classes.MigrationEngine import MigrationEngine
+
 from toga.style import Pack
 
 # Configure logging
@@ -70,20 +69,7 @@ class NADOOMigrationApp(toga.App):
 
 
 def main():
-    """Main entry point for the application when run through briefcase."""
-    return NADOOMigrationApp().main_loop()
+    return NADOOMigrationApp()
 
-
-def run_migration_gui(project_path: Path):
-    """Run the migration GUI application.
-
-    Args:
-        project_path (Path): Path to the project to migrate
-    """
-    logger.info(f"Starting NADOO Migration Framework GUI with project path: {project_path}")
-    try:
-        app = NADOOMigrationApp(project_path=project_path)
-        return app.main_loop()
-    except Exception as e:
-        logger.error(f"Failed to create application: {str(e)}")
-        raise
+if __name__ == '__main__':
+    main().main_loop()

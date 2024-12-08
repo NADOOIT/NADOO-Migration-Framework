@@ -14,11 +14,10 @@ from ..functions import project_structure
 from ..version_management import VersionManager, VersionType
 from ..compatibility import CompatibilityChecker, CompatibilityCheck, CompatibilityIssue
 from ..migrations import MigrationEngine
-from ..gui.app import run_migration_gui
 from .update import update
 from .brain_commands import brain
 from ..fixes import FixManager, FixResult
-from ..voice_commands import VoiceCommandManager
+# from ..voice_commands import VoiceCommandManager
 
 
 @click.group()
@@ -297,14 +296,14 @@ def voice(project_path: str):
     """Start voice command interface."""
     try:
         engine = MigrationEngine(Path(project_path))
-        voice_manager = VoiceCommandManager()
+        # voice_manager = VoiceCommandManager()
 
         # Add commands
-        voice_manager.add_command("check compatibility", lambda: check(project_path))
-        voice_manager.add_command("fix issues", lambda: fix(project_path, True, None, "text", None))
-        voice_manager.add_command("show status", lambda: status(project_path))
-        voice_manager.add_command("run migration", lambda: migrate(project_path))
-        voice_manager.add_command("stop listening", voice_manager.stop_listening)
+        # voice_manager.add_command("check compatibility", lambda: check(project_path))
+        # voice_manager.add_command("fix issues", lambda: fix(project_path, True, None, "text", None))
+        # voice_manager.add_command("show status", lambda: status(project_path))
+        # voice_manager.add_command("run migration", lambda: migrate(project_path))
+        # voice_manager.add_command("stop listening", voice_manager.stop_listening)
 
         # Start listening
         print("\nVoice Command Interface")
@@ -317,15 +316,14 @@ def voice(project_path: str):
         print("  - Stop listening")
         print("\nListening for commands... (say 'stop listening' to exit)")
 
-        voice_manager.speak("Voice command interface ready")
-        voice_manager.start_listening()
+        # voice_manager.speak("Voice command interface ready")
+        # voice_manager.start_listening()
 
         # Keep the main thread alive
         try:
-            while voice_manager.is_listening:
+            while True:
                 click.pause(1.0)
         except KeyboardInterrupt:
-            voice_manager.stop_listening()
             print("\nVoice command interface stopped")
 
     except Exception as e:
