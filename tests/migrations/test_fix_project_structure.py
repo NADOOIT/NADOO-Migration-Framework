@@ -66,7 +66,14 @@ def test_project(tmp_path: Path) -> Generator[Path, None, None]:
     os.chdir(project_dir)
     yield project_dir
     os.chdir(old_cwd)
-    shutil.rmtree(project_dir)
+
+    # Preserve .github directory
+    for item in project_dir.iterdir():
+        if item.name != ".github":
+            if item.is_dir():
+                shutil.rmtree(item)
+            else:
+                item.unlink()
 
 
 def test_migration_initialization(migration: FixProjectStructureMigration) -> None:

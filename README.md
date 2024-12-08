@@ -65,6 +65,16 @@ To see what the script would do without making changes:
 ./++START_THIS_SCRIPT_FOR_MacOS_INSTALL++.sh --dry-run
 ```
 
+## Running Tests
+
+To run the tests, use the following command:
+
+```bash
+pytest --ignore=tests/django --maxfail=1 --disable-warnings -q
+```
+
+This command will execute the test suite while ignoring the Django tests.
+
 ### Development
 
 1. Activate the virtual environment (if not already active):
