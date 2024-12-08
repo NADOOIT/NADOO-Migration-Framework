@@ -6,7 +6,7 @@ import tempfile
 import shutil
 import json
 
-from nadoo_migration_framework.migrations.nadoo_brain_migration import NADOOBrainMigration
+from nadoo_migration_framework.src.nadoo_migration_framework.migrations.nadoo_brain_migration import NADOOBrainMigration
 
 
 @pytest.fixture

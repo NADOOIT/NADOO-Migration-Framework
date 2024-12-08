@@ -5,20 +5,14 @@ import shutil
 import tempfile
 from pathlib import Path
 import pytest
-from nadoo_migration_framework.functions.project_structure_migrator import (
-    ProjectStructure,
-    detect_project_structure,
-    get_app_name,
-    normalize_app_name,
-    create_briefcase_structure,
-    update_imports,
+from nadoo_migration_framework.src.nadoo_migration_framework.functions.project_structure_migrator import (
     migrate_project,
 )
 
 
-def create_test_project(tmp_path: Path, structure: ProjectStructure, app_name: str = "test_app"):
+def create_test_project(tmp_path: Path, structure: str, app_name: str = "test_app"):
     """Create a test project with the specified structure."""
-    if structure == ProjectStructure.LEGACY:
+    if structure == "legacy":
         # Create legacy structure
         src_path = tmp_path / "src"
         for dir_name in ["functions", "classes", "processes"]:
@@ -33,7 +27,7 @@ def create_test_project(tmp_path: Path, structure: ProjectStructure, app_name: s
 
     else:
         # Create Briefcase structure
-        normalized_name = normalize_app_name(app_name, structure)
+        normalized_name = app_name.replace("-", "_")
         app_path = tmp_path / normalized_name / "src" / normalized_name
         for dir_name in ["functions", "classes", "processes"]:
             (app_path / dir_name).mkdir(parents=True)
@@ -55,18 +49,18 @@ def create_test_project(tmp_path: Path, structure: ProjectStructure, app_name: s
 def test_detect_project_structure(tmp_path):
     """Test project structure detection."""
     # Test legacy structure
-    legacy_path = create_test_project(tmp_path / "legacy", ProjectStructure.LEGACY)
-    assert detect_project_structure(legacy_path) == ProjectStructure.LEGACY
+    legacy_path = create_test_project(tmp_path / "legacy", "legacy")
+    assert migrate_project_structure.detect_project_structure(legacy_path) == "legacy"
 
     # Test dash-based Briefcase structure
-    dash_path = create_test_project(tmp_path / "dash", ProjectStructure.BRIEFCASE_DASH, "test-app")
-    assert detect_project_structure(dash_path) == ProjectStructure.BRIEFCASE_DASH
+    dash_path = create_test_project(tmp_path / "dash", "briefcase-dash", "test-app")
+    assert migrate_project_structure.detect_project_structure(dash_path) == "briefcase-dash"
 
     # Test underscore-based Briefcase structure
     underscore_path = create_test_project(
-        tmp_path / "underscore", ProjectStructure.BRIEFCASE_UNDERSCORE, "test_app"
+        tmp_path / "underscore", "briefcase-underscore", "test_app"
     )
-    assert detect_project_structure(underscore_path) == ProjectStructure.BRIEFCASE_UNDERSCORE
+    assert migrate_project_structure.detect_project_structure(underscore_path) == "briefcase-underscore"
 
 
 def test_get_app_name(tmp_path):
@@ -77,24 +71,24 @@ def test_get_app_name(tmp_path):
     # Test with pyproject.toml
     with open(project_path / "pyproject.toml", "w") as f:
         f.write('[tool.poetry]\nname = "test_app"\nversion = "0.1.0"\n')
-    assert get_app_name(str(project_path)) == "test_app"
+    assert migrate_project_structure.get_app_name(str(project_path)) == "test_app"
 
     # Test without pyproject.toml
     os.remove(project_path / "pyproject.toml")
-    assert get_app_name(str(project_path)) == "test_project"
+    assert migrate_project_structure.get_app_name(str(project_path)) == "test_project"
 
 
 def test_normalize_app_name():
     """Test app name normalization."""
     # Test dash to underscore
-    assert normalize_app_name("test-app", ProjectStructure.BRIEFCASE_UNDERSCORE) == "test_app"
+    assert migrate_project_structure.normalize_app_name("test-app", "briefcase-underscore") == "test_app"
 
     # Test underscore to dash
-    assert normalize_app_name("test_app", ProjectStructure.BRIEFCASE_DASH) == "test-app"
+    assert migrate_project_structure.normalize_app_name("test_app", "briefcase-dash") == "test-app"
 
     # Test no change needed
-    assert normalize_app_name("test_app", ProjectStructure.BRIEFCASE_UNDERSCORE) == "test_app"
-    assert normalize_app_name("test-app", ProjectStructure.BRIEFCASE_DASH) == "test-app"
+    assert migrate_project_structure.normalize_app_name("test_app", "briefcase-underscore") == "test_app"
+    assert migrate_project_structure.normalize_app_name("test-app", "briefcase-dash") == "test-app"
 
 
 def test_create_briefcase_structure(tmp_path):
@@ -102,7 +96,7 @@ def test_create_briefcase_structure(tmp_path):
     project_path = str(tmp_path)
     app_name = "test_app"
 
-    path_mapping = create_briefcase_structure(project_path, app_name)
+    path_mapping = migrate_project_structure.create_briefcase_structure(project_path, app_name)
 
     # Check that directories were created
     assert os.path.exists(os.path.join(project_path, app_name, "src", app_name))
@@ -121,8 +115,8 @@ def test_update_imports(tmp_path):
         f.write('from src.classes import TestClass\n')
         f.write('import src.processes.test_process\n')
 
-    update_imports(
-        str(test_file), "test_app", ProjectStructure.LEGACY, ProjectStructure.BRIEFCASE_UNDERSCORE
+    migrate_project_structure.update_imports(
+        str(test_file), "test_app", "legacy", "briefcase-underscore"
     )
 
     with open(test_file) as f:
@@ -135,11 +129,11 @@ def test_update_imports(tmp_path):
         f.write('from test-app.classes import TestClass\n')
         f.write('import test-app.processes.test_process\n')
 
-    update_imports(
+    migrate_project_structure.update_imports(
         str(test_file),
         "test-app",
-        ProjectStructure.BRIEFCASE_DASH,
-        ProjectStructure.BRIEFCASE_UNDERSCORE,
+        "briefcase-dash",
+        "briefcase-underscore",
     )
 
     with open(test_file) as f:
@@ -152,11 +146,11 @@ def test_migrate_project(tmp_path):
     """Test complete project migration."""
     # Create a legacy project
     legacy_path = create_test_project(
-        tmp_path / "test_project", ProjectStructure.LEGACY, "test_app"
+        tmp_path / "test_project", "legacy", "test_app"
     )
 
     # Migrate to underscore-based Briefcase
-    migrate_project(str(legacy_path))
+    migrate_project_structure.migrate_project(str(legacy_path))
 
     # Check that the project was migrated correctly
     assert os.path.exists(legacy_path / "test_app" / "src" / "test_app")
@@ -178,11 +172,11 @@ def test_migrate_dash_to_underscore(tmp_path):
     """Test migration from dash-based to underscore-based Briefcase."""
     # Create a dash-based project
     dash_path = create_test_project(
-        tmp_path / "test_project", ProjectStructure.BRIEFCASE_DASH, "test-app"
+        tmp_path / "test_project", "briefcase-dash", "test-app"
     )
 
     # Migrate to underscore-based Briefcase
-    migrate_project(str(dash_path))
+    migrate_project_structure.migrate_project(str(dash_path))
 
     # Check that the project was migrated correctly
     assert os.path.exists(dash_path / "test_app" / "src" / "test_app")

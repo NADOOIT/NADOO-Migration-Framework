@@ -5,8 +5,8 @@ import json
 import shutil
 import pytest
 from pathlib import Path
-from nadoo_migration_framework.migrations.repository_scanner import RepositoryScanner
-from nadoo_migration_framework.functions.project_structure_migrator import ProjectStructure
+from nadoo_migration_framework.src.nadoo_migration_framework.migrations.repository_scanner import RepositoryScanner
+from nadoo_migration_framework.src.nadoo_migration_framework.functions.project_structure_migrator import ProjectStructure
 
 
 def create_test_repo(

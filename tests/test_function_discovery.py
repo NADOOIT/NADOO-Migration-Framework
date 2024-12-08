@@ -2,11 +2,11 @@ import os
 import pytest
 import tempfile
 import shutil
-from src.functions.get_function_discovery_paths import (
+from nadoo_migration_framework.src.nadoo_migration_framework.functions.get_function_discovery_paths import (
     get_function_discovery_paths,
     find_function_in_discovery_paths,
 )
-from src.classes.FeedManager import FeedManager
+from nadoo_migration_framework.src.nadoo_migration_framework.classes.FeedManager import FeedManager
 from tests.test_utils import TestElement
 
 

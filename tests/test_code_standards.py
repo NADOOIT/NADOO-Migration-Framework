@@ -5,7 +5,7 @@ import re
 from pathlib import Path
 import pytest
 import nadoo_migration_framework
-from nadoo_migration_framework.migrations.cleanup_project_structure import (
+from nadoo_migration_framework.src.nadoo_migration_framework.migrations.cleanup_project_structure import (
     CleanupProjectStructureMigration,
 )
 

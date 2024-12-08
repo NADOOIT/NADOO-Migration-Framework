@@ -7,7 +7,7 @@ import shutil
 import logging
 from libcst._nodes.base import CSTValidationError
 
-from nadoo_migration_framework.migrations.toga_import_migrations import (
+from nadoo_migration_framework.src.nadoo_migration_framework.migrations.toga_import_migrations import (
     ImportTransformer,
     ConsolidateImportsMigration,
     STDLIB_MODULES,
@@ -269,7 +269,7 @@ def test_logging_configuration():
         handler.setLevel(logging.INFO)
         handler.setFormatter(logging.Formatter('%(levelname)s:%(message)s'))
 
-        logger = logging.getLogger('nadoo_migration_framework.migrations.toga_import_migrations')
+        logger = logging.getLogger('nadoo_migration_framework.src.nadoo_migration_framework.migrations.toga_import_migrations')
         logger.addHandler(handler)
         logger.setLevel(logging.INFO)
 

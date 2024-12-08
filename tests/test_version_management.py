@@ -6,7 +6,7 @@ from pathlib import Path
 import tempfile
 import toml
 
-from nadoo_migration_framework.version_management import (
+from nadoo_migration_framework.src.nadoo_migration_framework.version_management import (
     Version,
     VersionType,
     Release,

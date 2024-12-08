@@ -3,7 +3,7 @@ import zmq
 import threading
 import time
 import json
-from src.classes.FeedManager import FeedManager
+from nadoo_migration_framework.src.nadoo_migration_framework.classes.FeedManager import FeedManager
 
 
 class MockApp:

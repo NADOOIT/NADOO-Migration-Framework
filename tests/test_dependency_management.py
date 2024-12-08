@@ -5,7 +5,7 @@ from pathlib import Path
 import tempfile
 import toml
 
-from nadoo_migration_framework.dependency_management import DependencyRequirement, DependencyManager
+from nadoo_migration_framework.src.nadoo_migration_framework.classes.DependencyManagement import DependencyRequirement, DependencyManager
 
 
 @pytest.fixture

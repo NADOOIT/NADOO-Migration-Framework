@@ -2,7 +2,7 @@ import os
 import pytest
 import tempfile
 import shutil
-from src.classes.ProjectMigrator import ProjectMigrator
+from nadoo_migration_framework.src.nadoo_migration_framework.classes.ProjectMigrator import ProjectMigrator
 
 
 @pytest.fixture

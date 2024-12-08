@@ -6,7 +6,7 @@ import tempfile
 import shutil
 from pathlib import Path
 from unittest.mock import patch
-from nadoo_migration_framework.migrations.cleanup_project_structure import (
+from nadoo_migration_framework.src.nadoo_migration_framework.migrations.cleanup_project_structure import (
     CleanupProjectStructureMigration,
     SecurityError,
 )

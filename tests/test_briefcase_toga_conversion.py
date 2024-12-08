@@ -2,8 +2,8 @@ import os
 import pytest
 import tempfile
 import shutil
-from src.functions.convert_to_briefcase_toga import convert_to_briefcase_toga
-from src.functions.update_feed_manager import update_feed_manager
+from nadoo_migration_framework.src.nadoo_migration_framework.functions.convert_to_briefcase_toga import convert_to_briefcase_toga
+from nadoo_migration_framework.src.nadoo_migration_framework.functions.update_feed_manager import update_feed_manager
 
 
 @pytest.fixture

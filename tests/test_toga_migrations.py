@@ -4,12 +4,12 @@ import ast
 from pathlib import Path
 import pytest
 
-from nadoo_migration_framework.migrations.toga_functional_migrations import (
+from nadoo_migration_framework.src.nadoo_migration_framework.migrations.toga_functional_migrations import (
     CreateFunctionDirectoryMigration,
     ExtractCurriedFunctionsMigration,
     ExtractRegularFunctionsMigration,
 )
-from nadoo_migration_framework.migrations.toga_import_migrations import ConsolidateImportsMigration
+from nadoo_migration_framework.src.nadoo_migration_framework.migrations.toga_import_migrations import ConsolidateImportsMigration
 
 
 @pytest.fixture

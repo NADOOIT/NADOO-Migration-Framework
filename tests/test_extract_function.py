@@ -2,7 +2,7 @@ import os
 import pytest
 import tempfile
 import shutil
-from src.functions.extract_function_from_file_to_new_file import (
+from nadoo_migration_framework.src.nadoo_migration_framework.functions.extract_function_from_file_to_new_file import (
     extract_function_from_file_to_new_file,
 )
 

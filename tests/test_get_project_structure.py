@@ -2,7 +2,7 @@ import os
 import pytest
 import tempfile
 import shutil
-from src.functions.get_project_structure_for_path import get_project_structure_for_path
+from nadoo_migration_framework.src.nadoo_migration_framework.functions.get_project_structure_for_path import get_project_structure_for_path
 
 
 @pytest.fixture

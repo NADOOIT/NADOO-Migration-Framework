@@ -3,7 +3,7 @@
 import pytest
 from pathlib import Path
 from textwrap import dedent
-from nadoo_migration_framework.frameworks.django_functional_migrator import (
+from nadoo_migration_framework.src.nadoo_migration_framework.frameworks.django_functional_migrator import (
     DjangoFunctionalMigrator,
     ClassToModuleTransformer,
     ModelToFunctionsTransformer,

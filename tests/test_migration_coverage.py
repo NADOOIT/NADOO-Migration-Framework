@@ -6,7 +6,7 @@ import pytest
 import coverage
 import subprocess
 from pathlib import Path
-from nadoo_migration_framework.migrations.cleanup_project_structure import (
+from nadoo_migration_framework.src.nadoo_migration_framework.migrations.cleanup_project_structure import (
     CleanupProjectStructureMigration,
 )
 

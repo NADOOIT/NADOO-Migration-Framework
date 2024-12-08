@@ -3,12 +3,12 @@
 import pytest
 import sqlite3
 from pathlib import Path
-
-from nadoo_migration_framework.migrations.database_migrations import (
+from nadoo_migration_framework.src.nadoo_migration_framework.migrations.database_migrations import (
     AddColumnMigration,
     CreateIndexMigration,
     ModifyForeignKeyMigration,
 )
+from nadoo_migration_framework.src.nadoo_migration_framework.base import Migration
 
 
 @pytest.fixture

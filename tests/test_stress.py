@@ -8,7 +8,7 @@ import threading
 import multiprocessing
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
-from nadoo_migration_framework.migrations.cleanup_project_structure import (
+from nadoo_migration_framework.src.nadoo_migration_framework.migrations.cleanup_project_structure import (
     CleanupProjectStructureMigration,
 )
 

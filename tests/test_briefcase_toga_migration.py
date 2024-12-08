@@ -4,8 +4,8 @@ import os
 import pytest
 import toml
 from pathlib import Path
-from nadoo_migration_framework.version import Version, ProjectVersion
-from nadoo_migration_framework.migrations.add_briefcase_toga import AddBriefcaseTogaMigration
+from nadoo_migration_framework.src.nadoo_migration_framework.version import Version, ProjectVersion
+from nadoo_migration_framework.src.nadoo_migration_framework.migrations.add_briefcase_toga import AddBriefcaseTogaMigration
 
 
 def test_project_needs_briefcase_toga(tmp_path):

@@ -2,7 +2,7 @@ import os
 import pytest
 import tempfile
 import shutil
-from src.functions.create_standard_directory_structure_for_path import (
+from nadoo_migration_framework.src.nadoo_migration_framework.functions.create_standard_directory_structure_for_path import (
     create_standard_directory_structure_for_path,
 )
 

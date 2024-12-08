@@ -4,11 +4,13 @@ import os
 import shutil
 import tempfile
 import pytest
-from src.functions.migrate_to_briefcase import (
+from nadoo_migration_framework.src.nadoo_migration_framework.functions.migrate_to_briefcase import (
     migrate_project,
     get_app_name,
     create_briefcase_structure,
     update_imports,
+)
+from nadoo_migration_framework.src.nadoo_migration_framework.functions.migrate_to_briefcase import (
     migrate_files,
     update_pyproject_toml,
 )

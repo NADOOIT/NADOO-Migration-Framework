@@ -7,7 +7,7 @@ import pytest
 import toml
 from typing import Generator
 
-from nadoo_migration_framework.migrations.fix_project_structure import FixProjectStructureMigration
+from nadoo_migration_framework.src.nadoo_migration_framework.migrations.fix_project_structure import FixProjectStructureMigration
 
 
 @pytest.fixture

@@ -9,7 +9,7 @@ import tempfile
 import resource
 from pathlib import Path
 from memory_profiler import profile
-from nadoo_migration_framework.migrations.cleanup_project_structure import (
+from nadoo_migration_framework.src.nadoo_migration_framework.migrations.cleanup_project_structure import (
     CleanupProjectStructureMigration,
 )
 

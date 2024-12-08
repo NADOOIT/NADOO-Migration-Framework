@@ -4,7 +4,7 @@ import os
 import pytest
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from nadoo_migration_framework.frameworks.django_analyzer import DjangoAnalyzer, CompatibilityIssue
+from nadoo_migration_framework.src.nadoo_migration_framework.frameworks.django_analyzer import DjangoAnalyzer, CompatibilityIssue
 
 
 @pytest.fixture

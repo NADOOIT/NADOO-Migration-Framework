@@ -7,7 +7,7 @@ import wave
 import numpy as np
 import os
 from unittest.mock import Mock, patch, AsyncMock
-from nadoo_migration_framework.voice.voice_manager import VoiceManager
+from nadoo_migration_framework.src.nadoo_migration_framework.voice.voice_manager import VoiceManager
 
 
 @pytest.fixture

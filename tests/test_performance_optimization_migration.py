@@ -6,7 +6,7 @@ import tempfile
 import ast
 import time
 
-from nadoo_migration_framework.migrations.performance_optimization_migration import (
+from nadoo_migration_framework.src.nadoo_migration_framework.migrations.performance_optimization_migration import (
     PerformanceOptimizationMigration,
 )
 

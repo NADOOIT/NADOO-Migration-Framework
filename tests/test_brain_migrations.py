@@ -8,8 +8,8 @@ import shutil
 from unittest.mock import Mock, patch
 from typing import List, Dict, Any
 
-from nadoo_migration_framework.frameworks.brain_migration import BrainMigration
-from nadoo_migration_framework.migrations.brain_test_migration import BrainTestMigration
+from nadoo_migration_framework.src.nadoo_migration_framework.frameworks.brain_migration import BrainMigration
+from nadoo_migration_framework.src.nadoo_migration_framework.migrations.brain_test_migration import BrainTestMigration
 
 
 @pytest.fixture
@@ -133,10 +133,10 @@ def test_nadoo_config_update(test_migration, capsys):
     assert "Updating dependencies" in captured.out
 
 
-@patch('nadoo_migration_framework.cli.brain_commands.BrainMigration', BrainTestMigration)
+@patch('nadoo_migration_framework.src.nadoo_migration_framework.cli.brain_commands.BrainMigration', BrainTestMigration)
 def test_cli_brain_commands():
     """Test CLI brain commands."""
-    from nadoo_migration_framework.cli.brain_commands import brain
+    from nadoo_migration_framework.src.nadoo_migration_framework.cli.brain_commands import brain
     from click.testing import CliRunner
 
     runner = CliRunner()

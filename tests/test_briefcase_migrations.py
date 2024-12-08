@@ -4,9 +4,10 @@ import pytest
 from pathlib import Path
 import toml
 
-from nadoo_migration_framework.migrations.briefcase_migrations import (
+from nadoo_migration_framework.src.nadoo_migration_framework.migrations.briefcase_migrations import (
     UpdateBriefcaseLicenseMigration,
 )
+from nadoo_migration_framework.src.nadoo_migration_framework.base import Migration
 
 
 def test_update_briefcase_license(tmp_path):

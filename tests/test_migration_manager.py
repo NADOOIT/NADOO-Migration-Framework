@@ -5,7 +5,7 @@ from pathlib import Path
 import tempfile
 import shutil
 
-from nadoo_migration_framework.migration_manager import (
+from nadoo_migration_framework.src.nadoo_migration_framework.migration_manager import (
     MigrationManager,
     MigrationFile,
     MigrationType,

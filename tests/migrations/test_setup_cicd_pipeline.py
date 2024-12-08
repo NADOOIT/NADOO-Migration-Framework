@@ -6,7 +6,7 @@ from pathlib import Path
 import pytest
 from typing import Generator
 
-from nadoo_migration_framework.migrations.setup_cicd_pipeline import SetupCICDPipelineMigration
+from nadoo_migration_framework.src.nadoo_migration_framework.migrations.setup_cicd_pipeline import SetupCICDPipelineMigration
 
 
 @pytest.fixture
