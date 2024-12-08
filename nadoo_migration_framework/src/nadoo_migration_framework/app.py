@@ -32,14 +32,6 @@ class NADOOMigrationApp(toga.App):
         self.project_path = project_path or Path(".")
         logger.info(f"Project path set to: {self.project_path}")
 
-        try:
-            logger.info("Initializing Migration Engine")
-            self.engine = MigrationEngine(self.project_path)
-            self.changes = self.engine.check_migrations()
-            logger.info(f"Found {len(self.changes)} pending migrations")
-        except Exception as e:
-            logger.error(f"Failed to initialize Migration Engine: {str(e)}")
-            raise
 
     def startup(self):
         """Initialize the application."""
