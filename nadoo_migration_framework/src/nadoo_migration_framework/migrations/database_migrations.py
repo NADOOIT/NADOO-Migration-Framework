@@ -3,7 +3,7 @@
 import sqlite3
 from pathlib import Path
 from typing import Optional, List, Dict, Any
-from nadoo_migration_framework.base import Migration
+from ..base import Migration
 
 
 class DatabaseMigration(Migration):

@@ -12,7 +12,7 @@ import json
 import inspect
 import os
 
-from nadoo_migration_framework.migrations.toga_import_migrations import FileState
+from ..migrations.toga_import_migrations import FileState
 
 
 class NADOOBrainTransformer(cst.CSTTransformer):

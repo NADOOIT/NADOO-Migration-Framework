@@ -6,7 +6,7 @@ from packaging import version
 import toml
 from pathlib import Path
 
-from .version_types import VersionType
+from ..version_types import VersionType
 
 
 @dataclass

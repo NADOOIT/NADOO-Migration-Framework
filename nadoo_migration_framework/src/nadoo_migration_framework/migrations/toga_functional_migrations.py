@@ -5,7 +5,8 @@ from typing import Dict, List, Optional, Set
 import ast
 import toml
 from dataclasses import dataclass
-from nadoo_migration_framework.base import Migration
+import libcst as cst
+from nadoo_migration_framework.src.nadoo_migration_framework.base import Migration
 
 
 class CreateFunctionDirectoryMigration(Migration):

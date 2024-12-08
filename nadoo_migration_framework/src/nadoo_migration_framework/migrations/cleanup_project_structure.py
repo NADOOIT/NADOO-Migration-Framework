@@ -124,18 +124,35 @@ class CleanupProjectStructureMigration(BaseMigration):
         # Create main package structure
         paths = [
             base_path / 'src' / project_name,
-            base_path / 'src' / project_name / 'functions',
             base_path / 'src' / project_name / 'classes',
+            base_path / 'src' / project_name / 'migrations',
+            base_path / 'src' / project_name / 'resources',
+            base_path / 'src' / project_name / 'functions',
+            base_path / 'src' / project_name / 'types',
             base_path / 'tests',
             base_path / 'docs',
         ]
 
+        # Create required files
+        required_files = [
+            base_path / 'README.md',
+            base_path / 'LICENSE',
+            base_path / 'pyproject.toml',
+            base_path / '.gitignore',
+            base_path / 'src' / project_name / 'classes' / '__init__.py',
+            base_path / 'src' / project_name / 'migrations' / '__init__.py',
+            base_path / 'src' / project_name / 'resources' / '__init__.py',
+            base_path / 'src' / project_name / 'functions' / '__init__.py',
+            base_path / 'src' / project_name / 'types' / '__init__.py',
+        ]
+
         for path in paths:
             path.mkdir(parents=True, exist_ok=True)
-            init_file = path / '__init__.py'
-            if not init_file.exists():
-                init_file.touch()
-                init_file.chmod(0o644)  # rw-r--r--
+
+        for file_path in required_files:
+            if not file_path.exists():
+                file_path.touch()
+                file_path.chmod(0o644)  # rw-r--r--
 
         # Create root package __init__.py
         root_init = base_path / 'src' / '__init__.py'

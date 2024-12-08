@@ -6,7 +6,7 @@ import subprocess
 from typing import List, Dict, Optional
 from pathlib import Path
 import logging
-from .manager import MigrationManager
+from ..migration_manager import MigrationManager
 from ..functions.project_structure_migrator import ProjectStructure
 
 

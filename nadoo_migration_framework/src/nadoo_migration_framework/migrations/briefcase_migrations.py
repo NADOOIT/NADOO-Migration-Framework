@@ -2,7 +2,7 @@
 
 import toml
 from pathlib import Path
-from nadoo_migration_framework.base import Migration
+from ..base import Migration
 
 
 class UpdateBriefcaseLicenseMigration(Migration):
