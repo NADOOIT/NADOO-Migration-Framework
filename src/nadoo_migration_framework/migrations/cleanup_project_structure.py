@@ -47,6 +47,10 @@ class CleanupProjectStructureMigration:
 
         # Move files from old structure to new structure
         for old_path in old_src.rglob("*"):
+            # Skip .github directory
+            if ".github" in old_path.parts:
+                continue
+
             if old_path.is_file() and not str(old_path).startswith(str(new_src)):
                 relative_path = old_path.relative_to(old_src)
                 new_path = new_src / relative_path
