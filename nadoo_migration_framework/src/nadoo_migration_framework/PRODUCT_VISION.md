@@ -30,19 +30,24 @@ The NADOO Migration Framework is designed to facilitate the seamless migration o
 ## Checklist
 
 ### Project Setup
-- [ ] Verify `pyproject.toml` configuration
-- [ ] Ensure all dependencies are installed
-- [ ] Modify start script for correct directory navigation
+- [x] Verify `pyproject.toml` configuration
+- [x] Ensure all dependencies are installed
+- [x] Modify start script for correct directory navigation
 
 ### GUI Development
-- [ ] Set up Toga main window
-- [ ] Implement project listing table
-- [ ] Add "Dry Run" and "Migrate" buttons
+- [x] Set up Toga main window
+- [x] Implement project listing table
+- [x] Add "Dry Run" and "Migrate" buttons
 
 ### Functionality
 - [ ] Implement project discovery logic
 - [ ] Develop migration simulation (dry run)
 - [ ] Create reporting mechanism
+
+### Next Steps
+- Implement reporting and feedback for migration status
+- Use feedback to prioritize framework enhancements
+- Develop migration simulation logic to categorize projects
 
 ### Testing and Feedback
 - [ ] Create test library for validation
