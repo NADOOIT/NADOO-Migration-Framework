@@ -5,8 +5,10 @@ import logging
 import sys
 from pathlib import Path
 from .classes.MigrationEngine import MigrationEngine
+from .utils.github_projects import get_list_of_github_projects
 
 from toga.style import Pack
+from toga.style.pack import COLUMN
 
 # Configure logging
 logging.basicConfig(
@@ -41,7 +43,36 @@ class NADOOMigrationApp(toga.App):
             self.main_window = toga.MainWindow(title="NADOO Migration Framework")
 
             # Set up layout
-            box = toga.Box()
+            box = toga.Box(style=Pack(direction=COLUMN, padding=10))
+
+            # Get list of GitHub projects
+            projects = get_list_of_github_projects()
+
+            # Project selection
+            project_label = toga.Label("Select your Project:", style=Pack(padding=(0, 0, 5, 0)))
+            box.add(project_label)
+
+            project_selection = toga.Selection(
+                items=projects,
+                style=Pack(flex=1, padding=(0, 0, 5, 0), width=200, height=30)
+            )
+            box.add(project_selection)
+
+            # Add buttons
+            dry_run_button = toga.Button(
+                'Dry Run',
+                on_press=lambda widget: self.dry_run(project_selection.value),
+                style=Pack(padding=(5, 0, 0, 0))
+            )
+            box.add(dry_run_button)
+
+            migrate_button = toga.Button(
+                'Migrate',
+                on_press=lambda widget: self.migrate(project_selection.value),
+                style=Pack(padding=(5, 0, 0, 0))
+            )
+            box.add(migrate_button)
+
             self.main_window.content = box
 
             # Show the main window
@@ -52,12 +83,13 @@ class NADOOMigrationApp(toga.App):
             logger.error(f"Error during application startup: {str(e)}")
             raise
 
-    def toggle_voice_window(self, widget):
-        """Toggle the voice command window."""
-        if self.voice_window._impl is None:
-            self.voice_window.show()
-        else:
-            self.voice_window.close()
+    def dry_run(self, project_name):
+        logger.info(f"Performing dry run for project: {project_name}")
+        # TODO: Implement dry run logic
+
+    def migrate(self, project_name):
+        logger.info(f"Migrating project: {project_name}")
+        # TODO: Implement migration logic
 
 
 def main():
