@@ -106,7 +106,7 @@ class CleanupProjectStructureMigration:
         # Remove clutter directories
         for dir_name in clutter_dirs:
             dir_path = project_path / dir_name
-            if dir_path.exists():
+            if dir_path.exists() and not dir_path.match('.github*'):
                 shutil.rmtree(str(dir_path))
                 self.rollback_operations.append(("rmtree", dir_path, None))
 
