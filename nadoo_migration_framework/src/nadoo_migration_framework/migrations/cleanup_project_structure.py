@@ -229,6 +229,11 @@ class CleanupProjectStructureMigration(BaseMigration):
                 'src/classes': src_path / 'classes',
                 'src/nadoo_migration_framework/functions': src_path / 'functions',
                 'src/nadoo_migration_framework/classes': src_path / 'classes',
+                'src/nadoo_migration_framework/migrations': src_path / 'migrations',
+                'src/nadoo_migration_framework/resources': src_path / 'resources',
+                'src/nadoo_migration_framework/types': src_path / 'types',
+                'src/nadoo_migration_framework': src_path,  # For root-level files
+                'src': src_path,  # For root-level Python files
             }
 
             # First collect all files to move
@@ -238,6 +243,9 @@ class CleanupProjectStructureMigration(BaseMigration):
                 if old_full_path.exists():
                     for item in old_full_path.rglob('*'):
                         if item.is_file() and item.name not in self._get_excludes():
+                            # Only move Python files from root src directory
+                            if old_path == 'src' and not item.name.endswith('.py'):
+                                continue
                             self._verify_file_security(item)
                             rel_path = item.relative_to(old_full_path)
                             target_path = new_path / rel_path
@@ -249,19 +257,13 @@ class CleanupProjectStructureMigration(BaseMigration):
             # Then move all files
             for src_file, dst_file in files_to_move:
                 if src_file != dst_file:  # Only copy if source and destination are different
+                    dst_file.parent.mkdir(parents=True, exist_ok=True)
                     self._safe_copy(src_file, dst_file)
+                    if dst_file.exists():  # Only remove source if copy was successful
+                        src_file.unlink()
+
+                    # Update imports in the moved file
                     self._update_file_content(dst_file, project_name)
-
-            # Create __init__.py files in all package directories
-            for root, dirs, _ in os.walk(src_path):
-                for dir_name in dirs:
-                    init_file = Path(root) / dir_name / '__init__.py'
-                    if not init_file.exists():
-                        init_file.touch()
-                        init_file.chmod(0o644)  # rw-r--r--
-
-                # Check memory usage periodically
-                self._check_memory_usage()
 
         except Exception as e:
             self.logger.error(f"Failed to move existing code: {str(e)}")
